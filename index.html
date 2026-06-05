@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amlan & Sambita's Wedding</title>
-  
+
+  <!-- Importing Eagle Lake from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@0,600;1,500&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Eagle+Lake&display=swap" rel="stylesheet">
 
   <style>
-    /* The outer body sets a matching dark brown fallback */
+    /* Apply Eagle Lake globally */
     body { 
       margin: 0;
       background-color: #4a2912; 
@@ -18,14 +19,14 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      font-family: 'Eagle Lake', serif;
     }
 
-    /* The main mobile container holding your artwork */
     #app-container {
       position: relative;
       width: 100%;
       height: 100vh;
-      max-width: 450px; /* Keeps it looking like a phone screen on desktop */
+      max-width: 450px; 
       background-image: url('wedding-bg.jpg');
       background-size: cover;
       background-position: center;
@@ -36,11 +37,9 @@
       overflow-y: auto;
     }
 
-    /* Constrains the content to fit inside the brown arch */
     .content-area {
       width: 80%;
       text-align: center;
-      /* Pushes the content slightly down to avoid the top Ganesha */
       margin-top: 15vh; 
       margin-bottom: 10vh;
       display: flex;
@@ -48,40 +47,37 @@
       align-items: center;
     }
 
-    /* Typography */
     h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Eagle Lake', serif;
       font-size: 38px;
-      color: #FFFDD0; /* Rich Cream */
+      color: #FFFDD0; 
       margin: 0 0 5px 0;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
       line-height: 1.1;
+      font-weight: normal;
     }
     
     p.subtitle {
-      font-family: 'Lora', serif;
+      font-family: 'Eagle Lake', serif;
       font-size: 16px;
-      color: #E5B80B; /* Muted Gold */
+      color: #E5B80B; 
       margin-bottom: 30px;
-      font-style: italic;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
 
-    /* Royal Button Styling */
     .custom-file-upload {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 14px 28px;
       cursor: pointer;
-      background: rgba(42, 21, 8, 0.6); /* Translucent dark brown */
-      border: 2px solid #E5B80B; /* Gold border */
+      background: rgba(42, 21, 8, 0.6); 
+      border: 2px solid #E5B80B; 
       color: #E5B80B;
-      font-family: 'Cinzel', serif; /* Classic Roman font */
+      font-family: 'Eagle Lake', serif;
       font-size: 16px;
-      font-weight: 700;
       letter-spacing: 1px;
-      border-radius: 8px; /* Elegant slightly rounded corners, not pill-shaped */
+      border-radius: 8px; 
       margin-bottom: 20px;
       transition: all 0.3s;
       width: 100%;
@@ -91,7 +87,7 @@
     
     .custom-file-upload:active {
       transform: scale(0.97);
-      background: rgba(229, 184, 11, 0.2); /* Flash of gold */
+      background: rgba(229, 184, 11, 0.2); 
     }
 
     input[type="file"] { 
@@ -101,10 +97,9 @@
     #savePhoneBtn { 
       padding: 12px 20px; 
       font-size: 14px; 
-      font-weight: 700;
-      font-family: 'Cinzel', serif;
+      font-family: 'Eagle Lake', serif;
       cursor: pointer; 
-      background: rgba(255, 253, 208, 0.1); /* Slight cream tint */
+      background: rgba(255, 253, 208, 0.1); 
       color: #FFFDD0; 
       border: 1px solid #FFFDD0; 
       border-radius: 8px; 
@@ -115,7 +110,6 @@
       letter-spacing: 1px;
     }
 
-    /* Image Preview */
     #preview-container {
       position: relative;
       margin-bottom: 15px;
@@ -127,27 +121,21 @@
 
     #preview { 
       max-width: 100%; 
-      max-height: 35vh; /* Prevents long photos from overflowing the arch */
+      max-height: 35vh; 
       object-fit: contain;
       border-radius: 4px; 
       display: none; 
-      border: 3px solid #E5B80B; /* Gold frame for the photo */
+      border: 3px solid #E5B80B; 
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     }
 
     #status { 
       margin-top: 15px; 
-      font-family: 'Lora', serif;
-      font-style: italic;
+      font-family: 'Eagle Lake', serif;
       font-size: 15px;
       color: #FFFDD0;
       min-height: 24px;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    }
-
-    .icon {
-      font-size: 20px;
-      margin-right: 10px;
     }
   </style>
 </head>
@@ -160,12 +148,12 @@
       
       <label class="custom-file-upload">
         <input type="file" id="cameraInput" accept="image/*" capture="environment">
-        <span class="icon">📸</span> Take Photo
+        Take Photo
       </label>
       
       <div id="preview-container">
         <img id="preview" alt="Your beautiful photo">
-        <button id="savePhoneBtn"><span class="icon">💾</span> Save to Gallery</button>
+        <button id="savePhoneBtn">Save to Gallery</button>
       </div>
       
       <p id="status"></p>
@@ -186,33 +174,29 @@
       const file = event.target.files[0];
       if (!file) return;
 
-      // Show the preview and the Save button immediately
       preview.src = URL.createObjectURL(file);
       preview.style.display = "block";
       savePhoneBtn.style.display = "inline-flex"; 
       
-      // Royal loading text
-      statusText.innerHTML = "Preserving this beautiful moment... ⏳";
-      statusText.style.color = "#E5B80B"; // Gold
+      statusText.innerHTML = "Preserving this beautiful moment...";
+      statusText.style.color = "#E5B80B"; 
 
       const reader = new FileReader();
       reader.onload = function(e) {
         currentBase64Image = e.target.result;
 
-        // Upload to Google Drive quietly in the background
         fetch(SCRIPT_URL, {
           method: 'POST',
           body: JSON.stringify({ image: currentBase64Image }),
           mode: 'no-cors' 
         })
         .then(() => {
-          // Soft cream success message
-          statusText.innerHTML = `✅ Thank you for helping preserve their special day`;
+          statusText.innerHTML = "Thank you for helping preserve their special day.";
           statusText.style.color = "#FFFDD0"; 
         })
         .catch(err => {
-          statusText.innerHTML = `❌ Network Error.`;
-          statusText.style.color = "#ff6b6b"; // Softer red that fits the dark background
+          statusText.innerHTML = "Network Error.";
+          statusText.style.color = "#ff6b6b"; 
           console.error(err);
         });
       };
@@ -220,7 +204,6 @@
       reader.readAsDataURL(file);
     });
 
-    // Logic for the "Save to My Phone" button
     savePhoneBtn.addEventListener('click', () => {
       if (!currentBase64Image) return;
 
@@ -232,7 +215,7 @@
       document.body.removeChild(downloadLink);
       
       const originalText = savePhoneBtn.innerHTML;
-      savePhoneBtn.innerHTML = `<span class="icon">✅</span> Saved!`;
+      savePhoneBtn.innerHTML = "Saved!";
       setTimeout(() => {
         savePhoneBtn.innerHTML = originalText;
       }, 2000);
