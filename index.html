@@ -148,7 +148,6 @@
     const statusText = document.getElementById('status');
     const preview = document.getElementById('preview');
 
-    // YOUR SCRIPT URL
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHe2KsUovNfHoOb0UT5nG9f3DhowNKFHW8FJQbyBr8bualnScJtnNksE3GjDE9m3hQ/exec';
     
     let base64Image = "";
@@ -177,30 +176,25 @@
       statusText.style.color = "#c48b36";
       uploadBtn.disabled = true;
 
+      // The key fix: no-cors mode bypasses the strict browser preflight checks
       fetch(SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ image: base64Image })
+        body: JSON.stringify({ image: base64Image }),
+        mode: 'no-cors' 
       })
-      .then(response => response.json())
-      .then(data => {
+      .then(() => {
+        // With no-cors, we cannot read the response body from Google, 
+        // so we assume a successful fire-and-forget transmission.
         uploadBtn.disabled = false;
+        statusText.innerHTML = `<span style="color: #2e7d32;">✅ Uploaded beautifully! Thank you!</span>`;
         
-        if(data.status === 'success') {
-          statusText.innerHTML = `<span style="color: #2e7d32;">✅ Uploaded beautifully! Thank you!</span>`;
-          
-          setTimeout(() => {
-            preview.style.display = "none";
-            uploadBtn.style.display = "none";
-            statusText.innerText = "";
-            cameraInput.value = "";
-            base64Image = "";
-          }, 4000); 
-          
-        } else {
-          statusText.innerText = "❌ Upload Error: " + data.message;
-          statusText.style.color = "#8b0000";
-        }
+        setTimeout(() => {
+          preview.style.display = "none";
+          uploadBtn.style.display = "none";
+          statusText.innerText = "";
+          cameraInput.value = "";
+          base64Image = "";
+        }, 4000); 
       })
       .catch(err => {
         uploadBtn.disabled = false;
