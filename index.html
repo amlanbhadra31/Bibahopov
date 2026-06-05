@@ -44,7 +44,7 @@
     p.subtitle {
       font-size: 16px;
       color: #666;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       font-style: italic;
     }
 
@@ -74,9 +74,10 @@
       display: none; 
     }
 
-    button { 
-      padding: 15px 30px; 
-      font-size: 18px; 
+    /* New styling for the Save to Phone button */
+    #savePhoneBtn { 
+      padding: 12px 25px; 
+      font-size: 16px; 
       font-weight: bold;
       cursor: pointer; 
       background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); 
@@ -84,20 +85,15 @@
       border: none; 
       border-radius: 50px; 
       width: 80%;
-      margin: 0 auto;
+      margin: 15px auto 0 auto;
       transition: transform 0.2s, opacity 0.2s;
       box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4);
-    }
-
-    button:disabled { 
-      background: #ccc; 
-      box-shadow: none;
-      cursor: not-allowed; 
+      display: none; /* Hidden until a photo is taken */
     }
 
     #preview-container {
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     #preview { 
@@ -112,7 +108,7 @@
     #status { 
       margin-top: 20px; 
       font-weight: 600; 
-      font-size: 15px;
+      font-size: 14px;
       color: #555;
       min-height: 24px;
     }
@@ -131,77 +127,79 @@
     
     <label class="custom-file-upload">
       <input type="file" id="cameraInput" accept="image/*" capture="environment">
-      <span class="icon">📸</span> Open Camera
+      <span class="icon">📸</span> Take a Photo
     </label>
     
     <div id="preview-container">
       <img id="preview" alt="Your beautiful photo">
+      
+      <button id="savePhoneBtn"><span class="icon">💾</span> Save to My Phone</button>
     </div>
     
-    <button id="uploadBtn" style="display:none;"><span class="icon">✨</span> Upload to Drive</button>
     <p id="status"></p>
   </div>
 
   <script>
     const cameraInput = document.getElementById('cameraInput');
-    const uploadBtn = document.getElementById('uploadBtn');
+    const savePhoneBtn = document.getElementById('savePhoneBtn');
     const statusText = document.getElementById('status');
     const preview = document.getElementById('preview');
 
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHe2KsUovNfHoOb0UT5nG9f3DhowNKFHW8FJQbyBr8bualnScJtnNksE3GjDE9m3hQ/exec';
     
-    let base64Image = "";
+    let currentBase64Image = "";
 
     cameraInput.addEventListener('change', (event) => {
       const file = event.target.files[0];
-      if (file) {
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = "block";
-        uploadBtn.style.display = "inline-flex"; 
-        statusText.innerText = "Photo looks great! Ready to upload.";
-        statusText.style.color = "#555";
+      if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          base64Image = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
+      // 1. Show the preview and the Save button immediately
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = "block";
+      savePhoneBtn.style.display = "inline-flex"; 
+      
+      statusText.innerHTML = "Sending to Amlan & Sambita's Drive... ⏳";
+
+      // 2. Read the file
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        currentBase64Image = e.target.result;
+
+        // 3. Upload to Google Drive quietly in the background
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ image: currentBase64Image }),
+          mode: 'no-cors' 
+        })
+        .then(() => {
+          statusText.innerHTML = `<span style="color: #2e7d32;">✅ Securely saved to the couple's Drive!</span>`;
+        })
+        .catch(err => {
+          statusText.innerHTML = `<span style="color: #8b0000;">❌ Network Error.</span>`;
+          console.error(err);
+        });
+      };
+      
+      reader.readAsDataURL(file);
     });
 
-    uploadBtn.addEventListener('click', () => {
-      if (!base64Image) return;
+    // 4. Logic for the "Save to My Phone" button
+    savePhoneBtn.addEventListener('click', () => {
+      if (!currentBase64Image) return;
 
-      statusText.innerText = "Uploading to Drive... ⏳";
-      statusText.style.color = "#c48b36";
-      uploadBtn.disabled = true;
-
-      // The key fix: no-cors mode bypasses the strict browser preflight checks
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify({ image: base64Image }),
-        mode: 'no-cors' 
-      })
-      .then(() => {
-        // With no-cors, we cannot read the response body from Google, 
-        // so we assume a successful fire-and-forget transmission.
-        uploadBtn.disabled = false;
-        statusText.innerHTML = `<span style="color: #2e7d32;">✅ Uploaded beautifully! Thank you!</span>`;
-        
-        setTimeout(() => {
-          preview.style.display = "none";
-          uploadBtn.style.display = "none";
-          statusText.innerText = "";
-          cameraInput.value = "";
-          base64Image = "";
-        }, 4000); 
-      })
-      .catch(err => {
-        uploadBtn.disabled = false;
-        statusText.innerText = "❌ Network Error. Please check your connection.";
-        statusText.style.color = "#8b0000";
-        console.error(err);
-      });
+      const downloadLink = document.createElement('a');
+      downloadLink.href = currentBase64Image;
+      downloadLink.download = `Amlan_Sambita_Wedding_${new Date().getTime()}.jpg`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      
+      // Optional: Give them a little feedback that it worked
+      const originalText = savePhoneBtn.innerHTML;
+      savePhoneBtn.innerHTML = `<span class="icon">✅</span> Saved!`;
+      setTimeout(() => {
+        savePhoneBtn.innerHTML = originalText;
+      }, 2000);
     });
   </script>
 </body>
