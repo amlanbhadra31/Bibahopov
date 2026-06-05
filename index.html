@@ -104,27 +104,6 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
-    /* --- NEW PROGRESS BAR STYLES --- */
-    #progress-container {
-      width: 100%;
-      background-color: #e0e0e0;
-      border-radius: 10px;
-      margin-top: 15px;
-      overflow: hidden;
-      height: 10px;
-      display: none; /* hidden by default */
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
-    }
-
-    #progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(135deg, #e2b36c 0%, #c48b36 100%); /* Gold */
-      border-radius: 10px;
-      transition: width 0.5s ease-out, background-color 0.3s;
-    }
-    /* ------------------------------- */
-
     #status { 
       margin-top: 20px; 
       font-weight: 600; 
@@ -152,11 +131,6 @@
     
     <div id="preview-container">
       <img id="preview" alt="Your beautiful photo">
-      
-      <div id="progress-container">
-        <div id="progress-bar"></div>
-      </div>
-
       <button id="savePhoneBtn"><span class="icon">💾</span> Save to My Phone</button>
     </div>
     
@@ -168,71 +142,37 @@
     const savePhoneBtn = document.getElementById('savePhoneBtn');
     const statusText = document.getElementById('status');
     const preview = document.getElementById('preview');
-    
-    // Progress Bar Elements
-    const progressContainer = document.getElementById('progress-container');
-    const progressBar = document.getElementById('progress-bar');
 
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHe2KsUovNfHoOb0UT5nG9f3DhowNKFHW8FJQbyBr8bualnScJtnNksE3GjDE9m3hQ/exec';
     
     let currentBase64Image = "";
-    let progressInterval;
 
     cameraInput.addEventListener('change', (event) => {
       const file = event.target.files[0];
       if (!file) return;
 
-      // 1. Reset and show UI elements
+      // Show the preview and the Save button immediately
       preview.src = URL.createObjectURL(file);
       preview.style.display = "block";
       savePhoneBtn.style.display = "inline-flex"; 
-      progressContainer.style.display = "block";
       
-      // Reset progress bar to 0 and make it gold
-      progressBar.style.width = "0%";
-      progressBar.style.background = "linear-gradient(135deg, #e2b36c 0%, #c48b36 100%)";
-      
-      statusText.innerHTML = "Sending to Amlan & Sambita's Drive... ⏳";
+      statusText.innerHTML = "Sharing a special moment with them... ⏳";
 
-      // 2. Start the "Optimistic" Progress Animation
-      let currentProgress = 0;
-      progressInterval = setInterval(() => {
-        // Slow down the progress as it gets closer to 90%
-        if (currentProgress < 90) {
-          currentProgress += Math.random() * 8; // Random jump for realism
-          if (currentProgress > 90) currentProgress = 90;
-          progressBar.style.width = currentProgress + "%";
-        }
-      }, 600);
-
-      // 3. Read the file
       const reader = new FileReader();
       reader.onload = function(e) {
         currentBase64Image = e.target.result;
 
-        // 4. Upload to Google Drive
+        // Upload to Google Drive quietly in the background
         fetch(SCRIPT_URL, {
           method: 'POST',
           body: JSON.stringify({ image: currentBase64Image }),
           mode: 'no-cors' 
         })
         .then(() => {
-          // 5. SUCCESS! Stop the fake timer and force bar to 100%
-          clearInterval(progressInterval);
-          progressBar.style.width = "100%";
-          progressBar.style.background = "linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%)"; // Turn green
-          
-          statusText.innerHTML = `<span style="color: #2e7d32;">✅ Securely saved to the couple's Drive!</span>`;
-          
-          // Hide progress bar cleanly after 3 seconds
-          setTimeout(() => {
-             progressContainer.style.display = "none";
-          }, 3000);
+          // THE UPDATED SUCCESS MESSAGE
+          statusText.innerHTML = `<span style="color: #2e7d32;">✅ Thank you for helping preserve their special day</span>`;
         })
         .catch(err => {
-          // FAILURE! Stop timer and turn red
-          clearInterval(progressInterval);
-          progressBar.style.background = "#8b0000"; // Turn red
           statusText.innerHTML = `<span style="color: #8b0000;">❌ Network Error.</span>`;
           console.error(err);
         });
