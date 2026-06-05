@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
   <style>
-    /* Background and overall page styling */
     body { 
       font-family: 'Lora', serif;
       display: flex; 
@@ -18,13 +17,11 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      /* Deep warm background color */
       background-color: #4a2c1b; 
       background-image: radial-gradient(circle at center, #6d3f25 0%, #301b10 100%);
       color: #333;
     }
 
-    /* Main content card */
     .glass-card {
       background: rgba(255, 255, 255, 0.95);
       padding: 40px 20px;
@@ -33,14 +30,13 @@
       text-align: center;
       width: 90%;
       max-width: 400px;
-      border: 2px solid #e2b36c; /* Gold border */
+      border: 2px solid #e2b36c; 
     }
 
-    /* Typography */
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 48px;
-      color: #8b0000; /* Deep maroon */
+      color: #8b0000; 
       margin: 0 0 10px 0;
       font-weight: normal;
     }
@@ -52,18 +48,17 @@
       font-style: italic;
     }
 
-    /* Beautiful Buttons */
     .custom-file-upload {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 15px 30px;
       cursor: pointer;
-      background: linear-gradient(135deg, #e2b36c 0%, #c48b36 100%); /* Gold gradient */
+      background: linear-gradient(135deg, #e2b36c 0%, #c48b36 100%); 
       color: #fff;
       font-size: 18px;
       font-weight: bold;
-      border-radius: 50px; /* Pill shape */
+      border-radius: 50px; 
       margin-bottom: 20px;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 4px 15px rgba(196, 139, 54, 0.4);
@@ -84,7 +79,7 @@
       font-size: 18px; 
       font-weight: bold;
       cursor: pointer; 
-      background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); /* Elegant green */
+      background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); 
       color: white; 
       border: none; 
       border-radius: 50px; 
@@ -100,7 +95,6 @@
       cursor: not-allowed; 
     }
 
-    /* Image Preview */
     #preview-container {
       position: relative;
       margin-bottom: 20px;
@@ -123,7 +117,6 @@
       min-height: 24px;
     }
 
-    /* Fun little icon styling */
     .icon {
       font-size: 22px;
       margin-right: 8px;
@@ -145,7 +138,7 @@
       <img id="preview" alt="Your beautiful photo">
     </div>
     
-    <button id="uploadBtn" style="display:none;"><span class="icon">✨</span> Save & Upload</button>
+    <button id="uploadBtn" style="display:none;"><span class="icon">✨</span> Upload to Drive</button>
     <p id="status"></p>
   </div>
 
@@ -155,8 +148,8 @@
     const statusText = document.getElementById('status');
     const preview = document.getElementById('preview');
 
-    // YOUR SPECIFIC GOOGLE APPS SCRIPT URL IS INTEGRATED HERE
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJLku4JYiNYnOsAZk1IlywPFvODPdDHy8Nm-8jyIzcztrAfGjjG5J6NHIVDagIMY57/exec';
+    // YOUR SCRIPT URL
+    const SCRIPT_URL = 'https://script.google.com/macros/library/d/1xXcizgf3G3kTTfIXlZA3PvU--Ljtd3n2qsBrJslNyFVMJg1zAxFqtVhD/3';
     
     let base64Image = "";
 
@@ -165,8 +158,8 @@
       if (file) {
         preview.src = URL.createObjectURL(file);
         preview.style.display = "block";
-        uploadBtn.style.display = "inline-flex"; // Use inline-flex to keep icon alignment
-        statusText.innerText = "Photo looks great! Ready to save.";
+        uploadBtn.style.display = "inline-flex"; 
+        statusText.innerText = "Photo looks great! Ready to upload.";
         statusText.style.color = "#555";
 
         const reader = new FileReader();
@@ -180,19 +173,10 @@
     uploadBtn.addEventListener('click', () => {
       if (!base64Image) return;
 
-      statusText.innerText = "Saving to phone & Drive... ⏳";
+      statusText.innerText = "Uploading to Drive... ⏳";
       statusText.style.color = "#c48b36";
       uploadBtn.disabled = true;
 
-      // Force local download to the guest's phone
-      const downloadLink = document.createElement('a');
-      downloadLink.href = base64Image;
-      downloadLink.download = `Amlan_Sambita_Wedding_${new Date().getTime()}.jpg`;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-
-      // Upload to Google Drive
       fetch(SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -203,9 +187,8 @@
         uploadBtn.disabled = false;
         
         if(data.status === 'success') {
-          statusText.innerHTML = `<span style="color: #2e7d32;">✅ Saved beautifully! Thank you!</span>`;
+          statusText.innerHTML = `<span style="color: #2e7d32;">✅ Uploaded beautifully! Thank you!</span>`;
           
-          // Reset after 4 seconds
           setTimeout(() => {
             preview.style.display = "none";
             uploadBtn.style.display = "none";
