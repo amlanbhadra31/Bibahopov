@@ -787,6 +787,39 @@
     pointer-events:none;
   }
 
+
+  /* Lightweight animations */
+  .top-badge::before,
+  .top-badge::after,
+  .signature::before,
+  .signature::after{
+    animation:twinkle 1.8s ease-in-out infinite;
+    transform-origin:center;
+  }
+
+  @keyframes twinkle{
+    0%,100%{
+      opacity:.75;
+      transform:scale(1);
+    }
+    50%{
+      opacity:1;
+      transform:scale(1.15);
+    }
+  }
+
+  .capture-btn-inner,
+  .save-btn{
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+
+  @media (hover:hover){
+    .capture-btn-inner:hover,
+    .save-btn:hover{
+      transform:translateY(-2px);
+    }
+  }
+
 </style>
 </head>
 <body>
