@@ -6,7 +6,7 @@
 <title>Amlan &amp; Sambita — Capture a Memory</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Unicase:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet" />
 <style>
   :root{
     --sage:#cfdcc7;
@@ -40,7 +40,7 @@
     position:relative; overflow-x:hidden;
   }
 
-  /* Soft floating cream "clouds" reminiscent of the reference */
+  /* Soft floating cream "clouds" */
   .cloud{
     position:fixed; pointer-events:none; opacity:.55; filter:blur(.4px);
     color:var(--cream);
@@ -93,35 +93,18 @@
 
   header{ text-align:center; padding:4px 0 8px; position:relative; }
 
-  /* UPDATED MONOGRAM: Added 50px left padding to perfectly balance the 3 invisible spaces on the right */
-  .monogram{
-    font-family:'Pinyon Script', cursive;
-    font-size:106px; line-height:1.2;
-    background: linear-gradient(135deg, #6fa163 0%, #3f6b3a 45%, #a8842f 100%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    text-shadow: 0 2px 18px rgba(63,107,58,.18);
-    padding:10px 0 10px 50px; 
-    letter-spacing:.01em;
-    display:inline-block;
+  /* Custom Logo Styling */
+  .custom-logo {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    margin: 0 auto 15px auto;
+    display: block;
+    mix-blend-mode: multiply; /* Removes white background */
   }
 
-  .divider{
-    display:flex; align-items:center; justify-content:center; gap:12px;
-    margin:-10px auto 14px; color:var(--gold-deep);
-  }
-  .divider .line{
-    height:1px; width:78px;
-    background: linear-gradient(to right, transparent, var(--gold-deep), transparent);
-  }
-  .divider .ornament{ font-size:14px; opacity:.95; letter-spacing:.1em; }
-
-  .names{
-    font-family:'Cormorant Unicase','Cormorant Garamond', serif;
-    font-weight:500; font-size:26px; letter-spacing:.22em;
-    margin:0; color:var(--leaf-ink); text-transform:uppercase;
-  }
   .date{
-    margin:6px 0 0; font-size:12.5px; letter-spacing:.32em;
+    margin:0; font-size:12.5px; letter-spacing:.32em;
     color:var(--gold-deep); text-transform:uppercase;
   }
   .tagline{
@@ -203,17 +186,19 @@
   .status.error{ color:#b54a3a; opacity:1 }
 
   .signature{
-    font-family:'Pinyon Script', cursive; font-size:22px;
+    font-family:'Pinyon Script', cursive; 
+    font-size:22px;
     background: linear-gradient(135deg, #d9b96a, #a8842f);
     -webkit-background-clip:text; background-clip:text; color:transparent;
     letter-spacing:.04em;
+    padding: 0 10px; /* Prevents long names from clipping on edges */
   }
 
   /* Small phones */
   @media (max-height: 720px){
-    /* Adjusted padding up here as well to keep it balanced */
-    .monogram{ font-size:86px; line-height:1.2; padding:10px 0 10px 50px; }
+    .custom-logo { max-width: 180px; }
     .card{ padding:34px 24px 24px; }
+    .signature { font-size: 20px; }
   }
 </style>
 </head>
@@ -292,9 +277,7 @@
     <span class="corner br"></span>
 
     <header>
-      <div class="monogram">A&amp;S&nbsp;&nbsp;&nbsp;</div>
-      <div class="divider"><span class="line"></span><span class="ornament">❦</span><span class="line"></span></div>
-      <h1 class="names">Amlan &amp; Sambita</h1>
+      <img src="monogram.png" alt="S & A Monogram" class="custom-logo" />
       <p class="date">The Wedding</p>
       <p class="tagline">Capture a memory for us</p>
     </header>
@@ -328,7 +311,7 @@
 
     <footer class="status-footer">
       <p class="status" id="status">&nbsp;</p>
-      <div class="signature">— with love, A &amp; S —</div>
+      <div class="signature">— with love, Amlan &amp; Sambita —</div>
     </footer>
   </main>
 
