@@ -3,402 +3,591 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Amlan &amp; Sambita — Capture a Memory</title>
+<title>Amlan & Sambita — Wedding Memory Booth</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Shrikhand&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --ivory: #FFF8ED;
-    --champagne: #D8B77A;
-    --gold: #C5A15C;
-    --deep-gold: #A8833D;
-    --soft-text: #FDF7EC;
-
-    /* Legacy aliases kept so the rest of the CSS stays clean */
-    --sage:#FFF8ED;
-    --sage-deep:#D8B77A;
-    --sage-shadow:#C5A15C;
-    --cream:var(--ivory);
-    --cream-soft:#F3E8D4;
-    --leaf:var(--champagne);
-    --leaf-deep:var(--deep-gold);
-    --leaf-ink:#7A653C;
-    --gold-deep:var(--deep-gold);
-    --rose:#c98a7a;
-    --ink:#3A3124;
-    --shadow-elegant: 0 30px 80px -25px rgba(168,131,61,.45), 0 0 0 1px rgba(197,161,92,.16);
-    --shadow-soft: 0 10px 28px -10px rgba(168,131,61,.40);
+    --coral:#E76F5E;
+    --coral-soft:#F79A76;
+    --peach:#F6B39D;
+    --cream:#FFF4DF;
+    --cream-deep:#F4E1BC;
+    --yellow:#F3B600;
+    --teal:#079B78;
+    --teal-dark:#006B55;
+    --brown:#3B1A0A;
+    --olive:#596241;
+    --paper:#FFF8EA;
+    --shadow:rgba(59,26,10,.28);
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;height:100%}
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; min-height:100%; }
+
   body{
-    font-family:'Cormorant Garamond', Georgia, serif;
-    color:var(--ink);
-    background:
-      radial-gradient(900px 520px at 50% -12%, rgba(255,248,237,.85) 0%, transparent 62%),
-      radial-gradient(720px 520px at 0% 100%, rgba(255,248,237,.32), transparent 58%),
-      radial-gradient(720px 520px at 100% 100%, rgba(168,131,61,.22), transparent 58%),
-      linear-gradient(135deg, #FFF8ED, #D8B77A, #C5A15C);
-    min-height:100vh; min-height:100dvh;
-    display:flex; align-items:center; justify-content:center;
-    padding:28px 16px;
-    position:relative; overflow-x:hidden;
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px 12px;
+    font-family:'Baloo 2', system-ui, sans-serif;
+    color:var(--brown);
+    background:#f7f3ea;
   }
 
-  /* Soft floating cream "clouds" */
-  .cloud{
-    position:fixed; pointer-events:none; opacity:.55; filter:blur(.4px);
-    color:var(--cream);
-  }
-  .cloud svg{display:block; width:100%; height:auto}
-  .cloud.c1{ top:38%; left:-40px;  width:160px; }
-  .cloud.c2{ top:62%; right:-50px; width:200px; opacity:.6 }
-  .cloud.c3{ top:82%; left:-30px;  width:130px; opacity:.45 }
-
-  /* Leaf bouquets in top corners */
-  .leaves{
-    position:fixed; top:-30px; width:230px; height:auto; pointer-events:none;
-    filter: drop-shadow(0 6px 18px rgba(40,70,40,.25));
-  }
-  .leaves.left{ left:-40px; transform: rotate(-8deg); }
-  .leaves.right{ right:-40px; transform: scaleX(-1) rotate(-8deg); }
-
-  .card{
-    position:relative; z-index:2;
-    width:100%; max-width:440px;
-    background:
-      radial-gradient(120% 80% at 50% 0%, #ffffff 0%, var(--cream) 55%, var(--cream-soft) 100%);
-    border-radius:28px;
-    padding:34px 28px 24px;
-    box-shadow: var(--shadow-elegant);
-    border:1px solid rgba(197,161,92,.22);
+  .app-shell{
+    width:min(100%, 430px);
+    min-height:720px;
+    position:relative;
     overflow:hidden;
+    border-radius:18px;
+    background:
+      linear-gradient(rgba(255,244,223,.22), rgba(255,244,223,.22)),
+      conic-gradient(from -8deg at 50% 42%,
+        var(--yellow) 0deg 18deg,
+        #fff0bd 18deg 36deg,
+        var(--coral-soft) 36deg 54deg,
+        var(--peach) 54deg 72deg,
+        var(--yellow) 72deg 90deg,
+        #fff0bd 90deg 108deg,
+        var(--coral-soft) 108deg 126deg,
+        var(--peach) 126deg 144deg,
+        var(--yellow) 144deg 162deg,
+        #fff0bd 162deg 180deg,
+        var(--coral-soft) 180deg 198deg,
+        var(--peach) 198deg 216deg,
+        var(--yellow) 216deg 234deg,
+        #fff0bd 234deg 252deg,
+        var(--coral-soft) 252deg 270deg,
+        var(--peach) 270deg 288deg,
+        var(--yellow) 288deg 306deg,
+        #fff0bd 306deg 324deg,
+        var(--coral-soft) 324deg 342deg,
+        var(--peach) 342deg 360deg
+      );
+    box-shadow:0 24px 70px -28px var(--shadow);
+    isolation:isolate;
   }
-  
-  /* Inner gold-leaf border */
-  .card::before{
-    content:""; position:absolute; inset:12px;
-    border:1px solid rgba(197,161,92,.55);
-    border-radius:20px; pointer-events:none;
-  }
-  .card::after{
+
+  .app-shell::before{
     content:"";
     position:absolute;
     inset:0;
-    background:url(monogram.png);
-    background-size:260px;
-    background-repeat:no-repeat;
-    background-position:center;
-    opacity:.045;
     pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(255,244,223,.22), rgba(255,244,223,.06)),
+      radial-gradient(rgba(59,26,10,.13) .8px, transparent .8px);
+    background-size:auto, 4px 4px;
+    opacity:.18;
     z-index:0;
   }
 
-  .card > *{
+  .app-shell::after{
+    content:"";
+    position:absolute;
+    left:-20px;
+    right:-20px;
+    top:43%;
+    height:90px;
+    background:var(--cream);
+    border-top:2px solid var(--brown);
+    border-bottom:2px solid var(--brown);
+    z-index:0;
+    opacity:.95;
+  }
+
+  .content{
+    position:relative;
+    z-index:2;
+    min-height:720px;
+    padding:26px 22px 24px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .top-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:205px;
+    padding:8px 18px 9px;
+    background:var(--teal);
+    color:var(--cream);
+    border:3px solid var(--brown);
+    border-radius:999px;
+    box-shadow:4px 5px 0 var(--brown);
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    line-height:1;
+    margin:0 auto 20px;
+    position:relative;
+  }
+
+  .top-badge::before,
+  .top-badge::after{
+    content:"✦";
+    position:absolute;
+    color:var(--paper);
+    text-shadow:2px 2px 0 var(--brown);
+    font-size:16px;
+    line-height:1;
+  }
+
+  .top-badge::before{ left:12px; top:-10px; }
+  .top-badge::after{ right:12px; bottom:-10px; }
+
+  .title-card{
+    width:100%;
+    max-width:330px;
+    margin:0 auto 22px;
+    padding:16px 18px 18px;
+    background:var(--paper);
+    border:3px solid var(--brown);
+    border-radius:32px;
+    box-shadow:6px 7px 0 var(--brown);
+    text-align:center;
+    position:relative;
+  }
+
+  .title-card::before,
+  .title-card::after{
+    content:"✦";
+    position:absolute;
+    top:10px;
+    color:var(--teal);
+    text-shadow:2px 2px 0 rgba(59,26,10,.22);
+    font-size:17px;
+    line-height:1;
+  }
+
+  .title-card::before{ left:17px; transform:rotate(-12deg); }
+  .title-card::after{ right:17px; transform:rotate(12deg); }
+
+  .couple-name{
+    margin:0;
+    font-family:'Shrikhand','Cooper Black','Baloo 2',cursive;
+    font-size:40px;
+    line-height:.98;
+    letter-spacing:.01em;
+    color:var(--brown);
+    text-shadow:2px 2px 0 rgba(255,244,223,.9);
+  }
+
+  .app-subtitle{
+    margin:8px 0 0;
+    font-size:13px;
+    line-height:1;
+    letter-spacing:.17em;
+    text-transform:uppercase;
+    color:var(--teal-dark);
+    font-weight:800;
+  }
+
+  .star{
+    position:absolute;
+    width:52px;
+    height:52px;
+    z-index:1;
+    filter:drop-shadow(2px 3px 0 rgba(59,26,10,.18));
+  }
+
+  .star svg{ width:100%; height:100%; display:block; }
+  .star path{ fill:var(--paper); stroke:var(--brown); stroke-width:4; stroke-linejoin:round; }
+
+  .star.s1{ top:86px; left:28px; }
+  .star.s2{ top:86px; right:28px; }
+  .star.s3{ bottom:106px; left:34px; }
+  .star.s4{ bottom:106px; right:34px; }
+
+  .tv-wrap{
+    width:100%;
+    max-width:360px;
+    margin:0 auto;
+    position:relative;
+  }
+
+  .retro-tv{
+    position:relative;
+    width:100%;
+    border:7px solid var(--brown);
+    border-radius:34px;
+    background:var(--teal);
+    padding:13px 13px 56px;
+    box-shadow:8px 10px 0 var(--brown), 0 18px 45px -28px var(--shadow);
+  }
+
+  .retro-tv::before{
+    content:"";
+    position:absolute;
+    inset:5px;
+    border:3px solid var(--teal-dark);
+    border-radius:27px;
+    pointer-events:none;
+  }
+
+  .screen{
+    position:relative;
+    width:100%;
+    aspect-ratio:1.38/1;
+    border-radius:27px;
+    background:var(--paper);
+    border:5px solid var(--brown);
+    padding:12px;
+    overflow:hidden;
+  }
+
+  .screen::before{
+    content:"";
+    position:absolute;
+    inset:9px;
+    border:2px solid var(--brown);
+    border-radius:22px;
+    opacity:.65;
+    pointer-events:none;
+  }
+
+  .screen::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:radial-gradient(rgba(59,26,10,.16) .85px, transparent .85px);
+    background-size:5px 5px;
+    opacity:.16;
+  }
+
+  #frameSlot,
+  .photo-placeholder,
+  .photo-frame{
+    width:100%;
+    height:100%;
+  }
+
+  .photo-placeholder{
     position:relative;
     z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    text-align:center;
+    padding:24px;
+    color:var(--olive);
   }
 
-  /* Ornamental corners */
-  .corner{
-    position:absolute; width:30px; height:30px; pointer-events:none; opacity:.85;
-    border:2px solid var(--gold-deep);
-  }
-  .corner.tl{top:22px; left:22px; border-right:none;  border-bottom:none; border-top-left-radius:10px}
-  .corner.tr{top:22px; right:22px;border-left:none;  border-bottom:none; border-top-right-radius:10px}
-  .corner.bl{bottom:22px; left:22px;border-right:none;border-top:none;    border-bottom-left-radius:10px}
-  .corner.br{bottom:22px; right:22px;border-left:none;border-top:none;    border-bottom-right-radius:10px}
-
-  header{ text-align:center; padding:0 0 4px; position:relative; }
-
-  .event-date{
-    margin: 0 0 6px;
-    font-size:12px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:#A8833D;
-  }
-
-  /* UPDATED: Larger monogram, reduced top margin */
-  .custom-logo {
-    width: 100%;
-    max-width: 250px; 
-    height: auto;
-    margin: -8px auto 4px auto; 
-    display: block;
-    mix-blend-mode: multiply;
-    filter:
-      drop-shadow(0 0 6px rgba(197,161,92,.35))
-      drop-shadow(0 0 18px rgba(197,161,92,.18));
-  }
-
-  /* UPDATED: Script font for the new header */
-  .wedding-memories {
-    font-family: 'Pinyon Script', cursive;
-    font-size: 36px;
-    color:#C5A15C;
-    margin: 0;
-    line-height: 1;
-    font-weight: normal;
-  }
-
-  /* UPDATED: Subtitle with elegant italics */
-  .tagline{
-    margin: 8px 0 0; 
-    font-style:italic; 
-    font-size:16px;
-    color:#7A653C; 
-    letter-spacing:.02em;
-  }
-
-  /* ADDED: Golden stars divider */
-  .divider-stars {
-    color: var(--gold);
-    font-size: 13px;
-    letter-spacing: 0.4em;
-    margin: 12px 0 0 0;
-  }
-
-  .capture-area{
-    display:flex; flex-direction:column; align-items:center; gap:12px;
-    padding:12px 0 4px;
-  }
-
-  /* UPDATED: Reduced height (aspect-ratio 16/10) and softer dashed border */
-  .photo-placeholder{
-    width:100%; aspect-ratio:16/9; border-radius:18px;
-    border:1px dashed rgba(197,161,92,.45);
-    background:
-      radial-gradient(circle at center, rgba(197,161,92,.10), transparent 70%),
-      #fffaf0;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:10px; color:var(--gold-deep); text-align:center; padding:16px;
-  }
-  
-  /* UPDATED: 30-40% larger icon ring */
   .placeholder-ring{
-    width:76px; height:76px; border-radius:50%;
-    display:grid; place-items:center;
-    background:var(--cream);
-    border:1px solid rgba(168,132,47,.55);
-    color:var(--gold-deep);
-    box-shadow: inset 0 0 0 4px rgba(255,255,255,.6), 0 4px 14px -6px rgba(40,70,40,.25);
-  }
-  
-  /* UPDATED: Larger camera SVG */
-  .placeholder-ring svg{ width:38px; height:38px; }
-  
-  .photo-placeholder p{
-    margin:0; font-style:italic; font-size:14.5px; letter-spacing:.03em; opacity:.85;
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    background:var(--teal);
+    color:var(--cream);
+    display:grid;
+    place-items:center;
+    border:4px solid var(--brown);
+    box-shadow:4px 5px 0 var(--brown);
   }
 
-  .photo-placeholder small{
-    display:block;
-    max-width:260px;
-    font-size:13px;
-    line-height:1.35;
-    color:#7A653C;
-    opacity:.82;
+  .placeholder-ring svg{
+    width:34px;
+    height:34px;
+  }
+
+  .photo-placeholder p{
+    margin:0;
+    max-width:270px;
+    font-size:21px;
+    line-height:1.12;
+    color:var(--olive);
+    font-weight:700;
+    text-transform:lowercase;
   }
 
   .photo-frame{
-    width:100%; aspect-ratio:4/3; border-radius:18px;
-    padding:8px;
-    background: linear-gradient(135deg, #D8B77A, #C5A15C 60%, #A8833D);
-    box-shadow: var(--shadow-soft);
+    position:relative;
+    z-index:1;
+    border-radius:18px;
+    overflow:hidden;
+    background:var(--paper);
   }
-  .photo-frame img{ width:100%; height:100%; object-fit:cover; border-radius:12px; display:block }
 
-  .capture-btn{ display:inline-block; cursor:pointer; }
+  .photo-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    border-radius:16px;
+  }
+
+  .tv-controls{
+    position:absolute;
+    left:16px;
+    right:16px;
+    bottom:12px;
+    height:34px;
+    background:var(--cream);
+    border:4px solid var(--brown);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    border-radius:8px;
+    overflow:hidden;
+  }
+
+  .speaker-grid{
+    width:145px;
+    height:20px;
+    background:
+      linear-gradient(90deg, var(--brown) 2px, transparent 2px),
+      linear-gradient(var(--brown) 2px, transparent 2px);
+    background-size:9px 6px;
+    opacity:.86;
+  }
+
+  .knob{
+    width:32px;
+    height:32px;
+    flex:0 0 auto;
+    border:4px solid var(--brown);
+    background:var(--cream);
+    border-radius:50%;
+    position:relative;
+  }
+
+  .knob::after{
+    content:"";
+    position:absolute;
+    inset:7px;
+    border-radius:50%;
+    background:var(--teal);
+    border:3px solid var(--brown);
+  }
+
+  .capture-area{
+    width:100%;
+    margin-top:24px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+
+  .capture-btn{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    align-self:center;
+  }
+
   .capture-btn input{ display:none; }
-  
-  /* UPDATED: Title case, slightly larger font */
-  .capture-btn-inner{
-    display:inline-flex; align-items:center; gap:10px;
-    padding:12px 28px; border-radius:999px;
-    background: linear-gradient(135deg, #D8B77A, #C5A15C, #A8833D);
-    color:white;
-    border: 1px solid rgba(255,248,237,.5);
-    font-family:'Cormorant Garamond', serif; font-weight:600;
-    font-size:17px; letter-spacing:.08em; 
-    box-shadow: 0 8px 24px rgba(197,161,92,.25), inset 0 0 0 1px rgba(255,255,255,.18);
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-  .capture-btn-inner svg{ width:18px; height:18px; }
-  .capture-btn:active .capture-btn-inner{ transform: scale(.97); }
 
-  /* ADDED: Subtle hover glow for desktop */
-  @media (hover: hover) {
-    .capture-btn:hover .capture-btn-inner {
-      transform: translateY(-1px);
-      box-shadow: 0 0 18px rgba(197, 161, 92, 0.4), 0 10px 26px -10px rgba(40,70,40,.5), inset 0 0 0 1px rgba(255,255,255,.18);
-    }
-  }
-
-  .privacy-note{
-    margin:4px 0 0;
-    font-size:13px;
-    font-style:italic;
-    color:#7A653C;
-    opacity:.8;
+  .capture-btn-inner,
+  .save-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
     text-align:center;
+    border-radius:999px;
+    background:var(--teal);
+    color:var(--cream);
+    border:3px solid var(--brown);
+    box-shadow:4px 5px 0 var(--brown);
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-weight:800;
+    line-height:1;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+
+  .capture-btn-inner{
+    min-width:205px;
+    padding:11px 24px 12px;
+    font-size:17px;
+  }
+
+  .capture-btn-inner svg{
+    width:18px;
+    height:18px;
+    margin-right:8px;
   }
 
   .save-btn{
-    background:transparent; color:var(--gold-deep);
-    border:1px solid rgba(197,161,92,.65);
-    padding:10px 24px; border-radius:999px;
-    font-family:'Cormorant Garamond', serif; font-size:13px;
-    letter-spacing:.16em; text-transform:uppercase; cursor:pointer;
-    transition: all .2s ease; display:none;
+    display:none;
+    min-width:176px;
+    padding:9px 18px 10px;
+    font-size:13px;
+    background:var(--cream);
+    color:var(--brown);
   }
-  .save-btn:hover{ background:rgba(197,161,92,.10); border-color:var(--gold); color:var(--ink); }
+
+  .capture-btn:active .capture-btn-inner,
+  .save-btn:active{
+    transform:translate(3px, 3px);
+    box-shadow:1px 2px 0 var(--brown);
+  }
 
   .status-footer{
-    margin-top:12px; text-align:center; min-height:44px;
-    display:flex; flex-direction:column; justify-content:center; gap:5px;
+    width:100%;
+    margin-top:auto;
+    padding-top:18px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
   }
+
   .status{
-    margin:0; font-size:13.5px; font-style:italic; min-height:1.2em;
-    transition: color .3s ease; color:#7A653C; opacity:.8;
+    min-height:20px;
+    margin:0;
+    font-size:14px;
+    line-height:1.2;
+    font-weight:700;
+    color:var(--brown);
+    max-width:330px;
   }
-  .status.loading{ color: var(--gold-deep); opacity:1 }
-  .status.success{ color:#A8833D; opacity:1 }
-  .status.error{ color:#b54a3a; opacity:1 }
 
-  /* UPDATED: Footer signature using the exact gold requested */
+  .status.loading{ color:var(--teal-dark); }
+  .status.success{ color:var(--teal-dark); }
+  .status.error{ color:#A32622; }
+
   .signature{
-    font-family:'Pinyon Script', cursive; 
-    font-size:21px;
-    color:#A8833D;
-    padding: 0 10px;
-    letter-spacing: .02em;
+    margin:0;
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-size:14px;
+    line-height:1.08;
+    font-weight:800;
+    color:var(--cream);
+    background:var(--teal);
+    padding:8px 22px 9px;
+    border-radius:18px;
+    border:3px solid var(--brown);
+    box-shadow:4px 5px 0 var(--brown);
+    min-width:205px;
+    position:relative;
   }
 
-  /* Small phones */
-  @media (max-height: 720px){
-    .custom-logo { max-width: 205px; }
-    .wedding-memories { font-size: 30px; }
-    .card{ padding:30px 24px 20px; }
-    .signature { font-size: 20px; }
-    .photo-placeholder { aspect-ratio: 16/9; }
+  .signature::before,
+  .signature::after{
+    content:"✦";
+    position:absolute;
+    color:var(--paper);
+    text-shadow:2px 2px 0 var(--brown);
+    font-size:12px;
+  }
+
+  .signature::before{ left:10px; top:-7px; }
+  .signature::after{ right:10px; bottom:-7px; }
+
+  @media (max-width:420px){
+    body{ padding:0; background:#f7f3ea; }
+    .app-shell{ width:100%; min-height:100dvh; border-radius:0; }
+    .content{ min-height:100dvh; padding:24px 18px 20px; }
+    .top-badge{ margin-bottom:17px; transform:scale(.94); }
+    .title-card{ max-width:310px; padding:14px 16px 16px; margin-bottom:20px; }
+    .couple-name{ font-size:35px; }
+    .app-subtitle{ font-size:12px; }
+    .tv-wrap{ max-width:340px; }
+    .retro-tv{ padding:12px 12px 52px; border-width:6px; }
+    .screen{ border-width:4px; }
+    .photo-placeholder p{ font-size:19px; }
+    .placeholder-ring{ width:66px; height:66px; }
+    .star{ width:42px; height:42px; }
+    .star.s1{ top:92px; left:14px; }
+    .star.s2{ top:92px; right:14px; }
+    .star.s3{ bottom:108px; left:18px; }
+    .star.s4{ bottom:108px; right:18px; }
+    .capture-area{ margin-top:22px; }
+    .signature{ font-size:13px; min-width:190px; }
+  }
+
+  @media (max-height:720px){
+    .app-shell{ min-height:680px; }
+    .content{ min-height:680px; padding-top:18px; }
+    .top-badge{ margin-bottom:14px; }
+    .title-card{ margin-bottom:16px; }
+    .couple-name{ font-size:33px; }
+    .tv-wrap{ max-width:330px; }
+    .capture-area{ margin-top:18px; }
+    .status-footer{ padding-top:12px; }
   }
 </style>
 </head>
 <body>
+  <main class="app-shell" role="main">
+    <div class="content">
+      <div class="top-badge">Wedding Memory Booth</div>
 
-  <!-- Decorative leafy bouquets (top corners) -->
-  <svg class="leaves left" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <radialGradient id="lg1" cx="40%" cy="35%" r="65%">
-        <stop offset="0%" stop-color="#FFF8ED"/>
-        <stop offset="55%" stop-color="#D8B77A"/>
-        <stop offset="100%" stop-color="#A8833D"/>
-      </radialGradient>
-    </defs>
-    <g fill="url(#lg1)">
-      <ellipse cx="60"  cy="60"  rx="58" ry="32" transform="rotate(-25 60 60)"/>
-      <ellipse cx="110" cy="50"  rx="60" ry="28" transform="rotate(-5 110 50)"/>
-      <ellipse cx="150" cy="90"  rx="58" ry="30" transform="rotate(20 150 90)"/>
-      <ellipse cx="80"  cy="110" rx="62" ry="30" transform="rotate(-45 80 110)"/>
-      <ellipse cx="130" cy="135" rx="50" ry="26" transform="rotate(35 130 135)"/>
-      <ellipse cx="40"  cy="150" rx="40" ry="22" transform="rotate(-60 40 150)"/>
-    </g>
-    <!-- little flowers -->
-    <g>
-      <g transform="translate(70 70)">
-        <circle r="9" fill="#fbf6e7"/><circle r="3" fill="#C5A15C"/>
-      </g>
-      <g transform="translate(130 60)">
-        <circle r="8" fill="#fbf6e7"/><circle r="2.5" fill="#C5A15C"/>
-      </g>
-      <g transform="translate(105 115)">
-        <circle r="10" fill="#fbf6e7"/><circle r="3" fill="#C5A15C"/>
-      </g>
-      <g transform="translate(160 130)">
-        <circle r="7" fill="#fbf6e7"/><circle r="2.5" fill="#C5A15C"/>
-      </g>
-    </g>
-  </svg>
-  <svg class="leaves right" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <use href="#" />
-    <defs>
-      <radialGradient id="lg2" cx="40%" cy="35%" r="65%">
-        <stop offset="0%" stop-color="#FFF8ED"/>
-        <stop offset="55%" stop-color="#D8B77A"/>
-        <stop offset="100%" stop-color="#A8833D"/>
-      </radialGradient>
-    </defs>
-    <g fill="url(#lg2)">
-      <ellipse cx="60"  cy="60"  rx="58" ry="32" transform="rotate(-25 60 60)"/>
-      <ellipse cx="110" cy="50"  rx="60" ry="28" transform="rotate(-5 110 50)"/>
-      <ellipse cx="150" cy="90"  rx="58" ry="30" transform="rotate(20 150 90)"/>
-      <ellipse cx="80"  cy="110" rx="62" ry="30" transform="rotate(-45 80 110)"/>
-      <ellipse cx="130" cy="135" rx="50" ry="26" transform="rotate(35 130 135)"/>
-      <ellipse cx="40"  cy="150" rx="40" ry="22" transform="rotate(-60 40 150)"/>
-    </g>
-    <g>
-      <g transform="translate(70 70)"><circle r="9" fill="#fbf6e7"/><circle r="3" fill="#C5A15C"/></g>
-      <g transform="translate(130 60)"><circle r="8" fill="#fbf6e7"/><circle r="2.5" fill="#C5A15C"/></g>
-      <g transform="translate(105 115)"><circle r="10" fill="#fbf6e7"/><circle r="3" fill="#C5A15C"/></g>
-      <g transform="translate(160 130)"><circle r="7" fill="#fbf6e7"/><circle r="2.5" fill="#C5A15C"/></g>
-    </g>
-  </svg>
+      <section class="title-card" aria-label="Couple name">
+        <h1 class="couple-name">Amlan &amp;<br>Sambita</h1>
+        <p class="app-subtitle">Moments From Our Forever</p>
+      </section>
 
-  <!-- Floating cream cloud shapes -->
-  <div class="cloud c1" aria-hidden="true">
-    <svg viewBox="0 0 200 120"><path fill="currentColor" d="M30,90 C10,90 10,60 35,58 C30,30 70,20 80,45 C90,25 130,30 130,55 C160,55 170,90 145,95 C140,115 60,115 50,98 C42,108 22,108 30,90 Z"/></svg>
-  </div>
-  <div class="cloud c2" aria-hidden="true">
-    <svg viewBox="0 0 200 120"><path fill="currentColor" d="M30,90 C10,90 10,60 35,58 C30,30 70,20 80,45 C90,25 130,30 130,55 C160,55 170,90 145,95 C140,115 60,115 50,98 C42,108 22,108 30,90 Z"/></svg>
-  </div>
-  <div class="cloud c3" aria-hidden="true">
-    <svg viewBox="0 0 200 120"><path fill="currentColor" d="M30,90 C10,90 10,60 35,58 C30,30 70,20 80,45 C90,25 130,30 130,55 C160,55 170,90 145,95 C140,115 60,115 50,98 C42,108 22,108 30,90 Z"/></svg>
-  </div>
-
-  <main class="card" role="main">
-    <span class="corner tl"></span>
-    <span class="corner tr"></span>
-    <span class="corner bl"></span>
-    <span class="corner br"></span>
-
-    <header>
-      <img src="monogram.png" alt="S & A Monogram" class="custom-logo" />
-      <h1 class="wedding-memories">Moments From Our Forever</h1>
-    </header>
-
-    <section class="capture-area">
-      <div id="frameSlot">
-        <div class="photo-placeholder" id="placeholder">
-          <div class="placeholder-ring" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 8h3l2-2h6l2 2h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/>
-              <circle cx="12" cy="13" r="3.5"/>
-            </svg>
-          </div>
-          <p>Capture a moment we'll treasure forever</p>
-        </div>
+      <div class="star s1" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><path d="M50 4 C57 31 69 43 96 50 C69 57 57 69 50 96 C43 69 31 57 4 50 C31 43 43 31 50 4Z" /></svg>
+      </div>
+      <div class="star s2" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><path d="M50 4 C57 31 69 43 96 50 C69 57 57 69 50 96 C43 69 31 57 4 50 C31 43 43 31 50 4Z" /></svg>
+      </div>
+      <div class="star s3" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><path d="M50 4 C57 31 69 43 96 50 C69 57 57 69 50 96 C43 69 31 57 4 50 C31 43 43 31 50 4Z" /></svg>
+      </div>
+      <div class="star s4" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><path d="M50 4 C57 31 69 43 96 50 C69 57 57 69 50 96 C43 69 31 57 4 50 C31 43 43 31 50 4Z" /></svg>
       </div>
 
-      <label class="capture-btn">
-        <input type="file" id="cameraInput" accept="image/*" capture="environment" />
-        <span class="capture-btn-inner" id="captureLabel">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 8h3l2-2h6l2 2h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/>
-            <circle cx="12" cy="13" r="3.5"/>
-          </svg>
-          Add to Their Memories
-        </span>
-      </label>
+      <section class="tv-wrap" aria-label="Photo upload area">
+        <div class="retro-tv">
+          <div class="screen">
+            <div id="frameSlot">
+              <div class="photo-placeholder" id="placeholder">
+                <div class="placeholder-ring" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 8h3l2-2h6l2 2h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z" />
+                    <circle cx="12" cy="13" r="3.5" />
+                  </svg>
+                </div>
+                <p>Capture a moment<br>we'll treasure forever</p>
+              </div>
+            </div>
+          </div>
 
-      <button class="save-btn" id="savePhoneBtn">Download This Photo</button>
-    </section>
+          <div class="tv-controls" aria-hidden="true">
+            <div class="knob"></div>
+            <div class="speaker-grid"></div>
+            <div class="knob"></div>
+          </div>
+        </div>
+      </section>
 
-    <footer class="status-footer">
-      <p class="status" id="status">&nbsp;</p>
-      <div class="signature">Forever grateful,<br>Amlan &amp; Sambita</div>
-    </footer>
+      <section class="capture-area">
+        <label class="capture-btn">
+          <input type="file" id="cameraInput" accept="image/*" capture="environment" />
+          <span class="capture-btn-inner" id="captureLabel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 8h3l2-2h6l2 2h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z" />
+              <circle cx="12" cy="13" r="3.5" />
+            </svg>
+            <span class="label-text">Add to Memories</span>
+          </span>
+        </label>
+
+        <button class="save-btn" id="savePhoneBtn">Download Photo</button>
+      </section>
+
+      <footer class="status-footer">
+        <p class="status" id="status">&nbsp;</p>
+        <div class="signature">Forever grateful,<br>Amlan &amp; Sambita</div>
+      </footer>
+    </div>
   </main>
 
 <script>
@@ -409,6 +598,7 @@
   const statusText   = document.getElementById('status');
   const frameSlot    = document.getElementById('frameSlot');
   const captureLabel = document.getElementById('captureLabel');
+  const labelText    = captureLabel.querySelector('.label-text');
 
   let currentBase64Image = "";
 
@@ -418,17 +608,18 @@
   }
 
   function showImage(src){
-    frameSlot.innerHTML = '<div class="photo-frame"><img id="preview" alt="Your captured moment"/></div>';
+    frameSlot.innerHTML = '<div class="photo-frame"><img id="preview" alt="Your captured moment" /></div>';
     document.getElementById('preview').src = src;
     savePhoneBtn.style.display = 'inline-flex';
-    captureLabel.lastChild.textContent = ' Retake Memory';
+    labelText.textContent = 'Retake Memory';
   }
 
   cameraInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (!file) return;
+
     showImage(URL.createObjectURL(file));
-    setStatus("Preserving this beautiful moment…", "loading");
+    setStatus("Adding your memory to Amlan & Sambita's wedding album...", "loading");
 
     const reader = new FileReader();
     reader.onload = function(e){
@@ -438,7 +629,7 @@
         body: JSON.stringify({ image: currentBase64Image }),
         mode: 'no-cors'
       })
-      .then(() => setStatus("Your memory has been added to Amlan & Sambita’s forever album ✨", "success"))
+      .then(() => setStatus("Your memory has been added to Amlan & Sambita's forever album ✨", "success"))
       .catch(() => setStatus("Network error. Please try again.", "error"));
     };
     reader.readAsDataURL(file);
@@ -449,7 +640,10 @@
     const a = document.createElement('a');
     a.href = currentBase64Image;
     a.download = `Amlan_Sambita_Wedding_${Date.now()}.jpg`;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
     const original = savePhoneBtn.textContent;
     savePhoneBtn.textContent = 'Saved ✓';
     setTimeout(() => savePhoneBtn.textContent = original, 2000);
