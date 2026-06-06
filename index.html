@@ -740,6 +740,38 @@
     transform:translateY(1px);
   }
 
+
+  /* Upload interaction polish */
+  .capture-btn.is-disabled{
+    pointer-events:none;
+  }
+
+  .capture-btn.is-disabled .capture-btn-inner{
+    opacity:.88;
+    cursor:not-allowed;
+  }
+
+  .capture-btn-inner:active,
+  .save-btn:active{
+    transform:translate(3px,3px);
+    box-shadow:1px 2px 0 var(--brown);
+  }
+
+  .privacy-after-upload{
+    display:none;
+    margin:2px 0 0;
+    color:var(--teal-dark);
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-size:12px;
+    font-weight:700;
+    line-height:1.2;
+    text-align:center;
+  }
+
+  .privacy-after-upload.show{
+    display:block;
+  }
+
 </style>
 </head>
 <body>
@@ -793,6 +825,7 @@
 
       <footer class="status-footer">
         <p class="status" id="status">&nbsp;</p>
+        <p class="privacy-after-upload" id="privacyNote">Saved privately for Amlan &amp; Sambita.</p>
         <div class="signature">Forever grateful,<br>Amlan &amp; Sambita</div>
       </footer>
     </div>
@@ -806,6 +839,8 @@
   const statusText   = document.getElementById('status');
   const frameSlot    = document.getElementById('frameSlot');
   const captureLabel = document.getElementById('captureLabel');
+  const captureButton = document.querySelector('.capture-btn');
+  const privacyNote  = document.getElementById('privacyNote');
   const labelText    = captureLabel.querySelector('.label-text');
 
   let currentBase64Image = "";
@@ -815,11 +850,24 @@
     statusText.className = 'status ' + (tone || '');
   }
 
+  function setUploading(isUploading){
+    cameraInput.disabled = isUploading;
+    captureButton.classList.toggle('is-disabled', isUploading);
+    labelText.textContent = isUploading ? 'Uploading...' : 'Retake Memory';
+  }
+
+  function showPrivacyNote(){
+    privacyNote.classList.add('show');
+  }
+
+  function hidePrivacyNote(){
+    privacyNote.classList.remove('show');
+  }
+
   function showImage(src){
     frameSlot.innerHTML = '<div class="photo-frame"><img id="preview" alt="Your captured moment" /></div>';
     document.getElementById('preview').src = src;
     savePhoneBtn.style.display = 'inline-flex';
-    labelText.textContent = 'Retake Memory';
   }
 
   cameraInput.addEventListener('change', (event) => {
@@ -827,7 +875,9 @@
     if (!file) return;
 
     showImage(URL.createObjectURL(file));
-    setStatus("Adding your memory to Amlan & Sambita\'s wedding album...", "loading");
+    hidePrivacyNote();
+    setUploading(true);
+    setStatus("\u00a0", "loading");
 
     const reader = new FileReader();
     reader.onload = function(e){
@@ -838,10 +888,18 @@
         mode: 'no-cors'
       })
       .then(() => {
-        setStatus("Your memory has been added to Amlan & Sambita's forever album", "success");
-        setTimeout(() => setStatus("\u00a0", ""), 5000);
+        setUploading(false);
+        setStatus("\u00a0", "success");
+        showPrivacyNote();
+        setTimeout(() => hidePrivacyNote(), 2000);
       })
-      .catch(() => setStatus("Network error. Please try again.", "error"));
+      .catch(() => {
+        cameraInput.disabled = false;
+        captureButton.classList.remove('is-disabled');
+        labelText.textContent = 'Try Again';
+        hidePrivacyNote();
+        setStatus("Upload failed. Please check your internet and try again.", "error");
+      });
     };
     reader.readAsDataURL(file);
   });
