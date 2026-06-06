@@ -878,6 +878,61 @@
     }
   }
 
+
+  /* Strong mobile/desktop preview fill fix */
+  .screen.preview-active{
+    padding:0;
+  }
+
+  .screen.preview-active::before{
+    display:none;
+  }
+
+  .screen.preview-active #frameSlot{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:2;
+  }
+
+  .screen.preview-active .photo-frame{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    aspect-ratio:auto;
+    padding:0;
+    border:0;
+    box-shadow:none;
+    background:transparent;
+    border-radius:22px;
+    overflow:hidden;
+  }
+
+  .screen.preview-active .photo-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
+    border-radius:20px;
+    display:block;
+  }
+
+  @media (max-width:420px){
+    .screen.preview-active{
+      padding:0;
+    }
+
+    .screen.preview-active .photo-frame{
+      border-radius:20px;
+    }
+
+    .screen.preview-active .photo-frame img{
+      border-radius:18px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -944,6 +999,7 @@
   const savePhoneBtn = document.getElementById('savePhoneBtn');
   const statusText   = document.getElementById('status');
   const frameSlot    = document.getElementById('frameSlot');
+  const screenBox    = document.querySelector('.screen');
   const captureLabel = document.getElementById('captureLabel');
   const captureButton = document.querySelector('.capture-btn');
   const privacyNote  = document.getElementById('privacyNote');
@@ -972,6 +1028,7 @@
   }
 
   function showImage(src){
+    screenBox.classList.add('preview-active');
     frameSlot.innerHTML = '<div class="photo-frame"><img id="preview" alt="Your captured moment" /></div>';
     document.getElementById('preview').src = src;
     savePhoneBtn.style.display = 'none';
