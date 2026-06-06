@@ -772,6 +772,21 @@
     display:block;
   }
 
+
+  /* Prevent download while upload is still in progress */
+  .save-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+    pointer-events:none;
+  }
+
+  /* Download button appears only after successful upload */
+  .save-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+    pointer-events:none;
+  }
+
 </style>
 </head>
 <body>
@@ -852,6 +867,7 @@
 
   function setUploading(isUploading){
     cameraInput.disabled = isUploading;
+    savePhoneBtn.disabled = isUploading;
     captureButton.classList.toggle('is-disabled', isUploading);
     labelText.textContent = isUploading ? 'Uploading...' : 'Retake Memory';
   }
@@ -867,7 +883,8 @@
   function showImage(src){
     frameSlot.innerHTML = '<div class="photo-frame"><img id="preview" alt="Your captured moment" /></div>';
     document.getElementById('preview').src = src;
-    savePhoneBtn.style.display = 'inline-flex';
+    savePhoneBtn.style.display = 'none';
+    savePhoneBtn.disabled = true;
   }
 
   cameraInput.addEventListener('change', (event) => {
@@ -882,6 +899,7 @@
     const reader = new FileReader();
     reader.onload = function(e){
       currentBase64Image = e.target.result;
+
       fetch(SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({ image: currentBase64Image }),
@@ -889,14 +907,18 @@
       })
       .then(() => {
         setUploading(false);
+        savePhoneBtn.style.display = 'inline-flex';
+        savePhoneBtn.disabled = false;
         setStatus("\u00a0", "success");
         showPrivacyNote();
         setTimeout(() => hidePrivacyNote(), 2000);
       })
       .catch(() => {
         cameraInput.disabled = false;
+        savePhoneBtn.style.display = 'none';
+        savePhoneBtn.disabled = true;
         captureButton.classList.remove('is-disabled');
-        labelText.textContent = 'Try Again';
+        labelText.textContent = 'Add to Memories';
         hidePrivacyNote();
         setStatus("Upload failed. Please check your internet and try again.", "error");
       });
@@ -905,7 +927,7 @@
   });
 
   savePhoneBtn.addEventListener('click', () => {
-    if (!currentBase64Image) return;
+    if (savePhoneBtn.disabled || !currentBase64Image) return;
     const a = document.createElement('a');
     a.href = currentBase64Image;
     a.download = `Amlan_Sambita_Wedding_${Date.now()}.jpg`;
