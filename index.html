@@ -6,7 +6,7 @@
 <title>Amlan & Sambita — Wedding Memory Booth</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Shrikhand&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Shrikhand&display=swap" rel="stylesheet" />
 <style>
   :root{
     --coral:#E76F5E;
@@ -642,6 +642,102 @@
     .status-footer{
       padding-top:14px;
     }
+  }
+
+
+  /* Final typography system */
+  .couple-name{
+    font-family:'Shrikhand', 'Cooper Black', cursive;
+    font-size:40px;
+    line-height:.95;
+    letter-spacing:.01em;
+  }
+
+  .top-badge,
+  .app-subtitle,
+  .photo-placeholder p,
+  .capture-btn-inner,
+  .save-btn,
+  .status{
+    font-family:'Baloo 2', system-ui, sans-serif;
+  }
+
+  .app-subtitle{
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.17em;
+    text-transform:uppercase;
+  }
+
+  .photo-placeholder p{
+    font-size:21px;
+    font-weight:700;
+    line-height:1.12;
+  }
+
+  .capture-btn-inner{
+    font-size:17px;
+    font-weight:800;
+  }
+
+  .save-btn{
+    font-weight:800;
+  }
+
+  .signature{
+    font-family:'Baloo 2', system-ui, sans-serif;
+    font-size:14px;
+    line-height:1.12;
+    font-weight:800;
+    letter-spacing:.01em;
+  }
+
+  @media (max-width:420px){
+    .couple-name{
+      font-size:35px;
+    }
+
+    .signature{
+      font-size:15px;
+    }
+  }
+
+  @media (max-height:720px){
+    .couple-name{
+      font-size:33px;
+    }
+
+    .signature{
+      font-size:14px;
+    }
+  }
+
+
+  /* Camera icon + button text alignment fix */
+  .capture-btn-inner{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    vertical-align:middle;
+  }
+
+  .capture-btn-inner svg{
+    flex:0 0 auto;
+    width:18px;
+    height:18px;
+    margin:0;
+    display:block;
+    transform:translateY(-1px);
+  }
+
+  .capture-btn-inner .label-text{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+    white-space:nowrap;
+    transform:translateY(1px);
   }
 
 </style>
