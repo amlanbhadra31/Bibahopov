@@ -70,7 +70,7 @@
     background:
       radial-gradient(120% 80% at 50% 0%, #ffffff 0%, var(--cream) 55%, var(--cream-soft) 100%);
     border-radius:28px;
-    padding:42px 28px 30px;
+    padding:34px 28px 24px;
     box-shadow: var(--shadow-elegant);
     border:1px solid rgba(197,161,92,.22);
     overflow:hidden;
@@ -110,10 +110,10 @@
   .corner.bl{bottom:22px; left:22px;border-right:none;border-top:none;    border-bottom-left-radius:10px}
   .corner.br{bottom:22px; right:22px;border-left:none;border-top:none;    border-bottom-right-radius:10px}
 
-  header{ text-align:center; padding:0 0 8px; position:relative; }
+  header{ text-align:center; padding:0 0 4px; position:relative; }
 
   .event-date{
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     font-size:12px;
     letter-spacing:.18em;
     text-transform:uppercase;
@@ -123,9 +123,9 @@
   /* UPDATED: Larger monogram, reduced top margin */
   .custom-logo {
     width: 100%;
-    max-width: 275px; 
+    max-width: 250px; 
     height: auto;
-    margin: -10px auto 5px auto; 
+    margin: -8px auto 4px auto; 
     display: block;
     mix-blend-mode: multiply;
     filter:
@@ -136,7 +136,7 @@
   /* UPDATED: Script font for the new header */
   .wedding-memories {
     font-family: 'Pinyon Script', cursive;
-    font-size: 38px;
+    font-size: 36px;
     color:#C5A15C;
     margin: 0;
     line-height: 1;
@@ -161,24 +161,24 @@
   }
 
   .capture-area{
-    display:flex; flex-direction:column; align-items:center; gap:16px;
-    padding:16px 0 8px;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    padding:12px 0 4px;
   }
 
   /* UPDATED: Reduced height (aspect-ratio 16/10) and softer dashed border */
   .photo-placeholder{
-    width:100%; aspect-ratio:16/10; border-radius:18px;
+    width:100%; aspect-ratio:16/9; border-radius:18px;
     border:1px dashed rgba(197,161,92,.45);
     background:
       radial-gradient(circle at center, rgba(197,161,92,.10), transparent 70%),
       #fffaf0;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:12px; color:var(--gold-deep); text-align:center; padding:18px;
+    gap:10px; color:var(--gold-deep); text-align:center; padding:16px;
   }
   
   /* UPDATED: 30-40% larger icon ring */
   .placeholder-ring{
-    width:84px; height:84px; border-radius:50%;
+    width:76px; height:76px; border-radius:50%;
     display:grid; place-items:center;
     background:var(--cream);
     border:1px solid rgba(168,132,47,.55);
@@ -187,10 +187,10 @@
   }
   
   /* UPDATED: Larger camera SVG */
-  .placeholder-ring svg{ width:42px; height:42px; }
+  .placeholder-ring svg{ width:38px; height:38px; }
   
   .photo-placeholder p{
-    margin:0; font-style:italic; font-size:15px; letter-spacing:.03em; opacity:.85;
+    margin:0; font-style:italic; font-size:14.5px; letter-spacing:.03em; opacity:.85;
   }
 
   .photo-placeholder small{
@@ -216,7 +216,7 @@
   /* UPDATED: Title case, slightly larger font */
   .capture-btn-inner{
     display:inline-flex; align-items:center; gap:10px;
-    padding:13px 30px; border-radius:999px;
+    padding:12px 28px; border-radius:999px;
     background: linear-gradient(135deg, #D8B77A, #C5A15C, #A8833D);
     color:white;
     border: 1px solid rgba(255,248,237,.5);
@@ -256,11 +256,11 @@
   .save-btn:hover{ background:rgba(197,161,92,.10); border-color:var(--gold); color:var(--ink); }
 
   .status-footer{
-    margin-top:18px; text-align:center; min-height:60px;
-    display:flex; flex-direction:column; justify-content:center; gap:8px;
+    margin-top:12px; text-align:center; min-height:44px;
+    display:flex; flex-direction:column; justify-content:center; gap:5px;
   }
   .status{
-    margin:0; font-size:14.5px; font-style:italic; min-height:1.2em;
+    margin:0; font-size:13.5px; font-style:italic; min-height:1.2em;
     transition: color .3s ease; color:#7A653C; opacity:.8;
   }
   .status.loading{ color: var(--gold-deep); opacity:1 }
@@ -270,7 +270,7 @@
   /* UPDATED: Footer signature using the exact gold requested */
   .signature{
     font-family:'Pinyon Script', cursive; 
-    font-size:26px;
+    font-size:21px;
     color:#A8833D;
     padding: 0 10px;
     letter-spacing: .02em;
@@ -278,10 +278,10 @@
 
   /* Small phones */
   @media (max-height: 720px){
-    .custom-logo { max-width: 220px; }
-    .wedding-memories { font-size: 32px; }
-    .card{ padding:34px 24px 24px; }
-    .signature { font-size: 24px; }
+    .custom-logo { max-width: 205px; }
+    .wedding-memories { font-size: 30px; }
+    .card{ padding:30px 24px 20px; }
+    .signature { font-size: 20px; }
     .photo-placeholder { aspect-ratio: 16/9; }
   }
 </style>
@@ -365,9 +365,7 @@
 
     <header>
       <img src="monogram.png" alt="S & A Monogram" class="custom-logo" />
-      <p class="event-date">Amlan &amp; Sambita • Wedding Memories</p>
       <h1 class="wedding-memories">Moments From Our Forever</h1>
-      <p class="tagline">Capture a smile, a blessing, or a beautiful moment from today.</p>
     </header>
 
     <section class="capture-area">
@@ -380,7 +378,6 @@
             </svg>
           </div>
           <p>Capture a moment we'll treasure forever</p>
-          <small>Your photo will be privately shared with Amlan &amp; Sambita.</small>
         </div>
       </div>
 
@@ -394,8 +391,6 @@
           Add to Their Memories
         </span>
       </label>
-
-      <p class="privacy-note">Photos are privately shared with Amlan &amp; Sambita only.</p>
 
       <button class="save-btn" id="savePhoneBtn">Download This Photo</button>
     </section>
