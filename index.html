@@ -85,20 +85,6 @@
     z-index:0;
   }
 
-  .app-shell::after{
-    content:"";
-    position:absolute;
-    left:-20px;
-    right:-20px;
-    top:43%;
-    height:90px;
-    background:var(--cream);
-    border-top:2px solid var(--brown);
-    border-bottom:2px solid var(--brown);
-    z-index:0;
-    opacity:.95;
-  }
-
   .content{
     position:relative;
     z-index:2;
@@ -155,16 +141,7 @@
     position:relative;
   }
 
-  .title-card::before,
-  .title-card::after{
-    content:"✦";
-    position:absolute;
-    top:10px;
-    color:var(--teal);
-    text-shadow:2px 2px 0 rgba(59,26,10,.22);
-    font-size:17px;
-    line-height:1;
-  }
+
 
   .title-card::before{ left:17px; transform:rotate(-12deg); }
   .title-card::after{ right:17px; transform:rotate(12deg); }
@@ -200,10 +177,10 @@
   .star svg{ width:100%; height:100%; display:block; }
   .star path{ fill:var(--paper); stroke:var(--brown); stroke-width:4; stroke-linejoin:round; }
 
-  .star.s1{ top:86px; left:28px; }
-  .star.s2{ top:86px; right:28px; }
-  .star.s3{ bottom:106px; left:34px; }
-  .star.s4{ bottom:106px; right:34px; }
+  .star.s1{ top:86px; left:6px; }
+  .star.s2{ top:86px; right:6px; }
+  .star.s3{ bottom:106px; left:10px; }
+  .star.s4{ bottom:106px; right:10px; }
 
   .tv-wrap{
     width:100%;
@@ -501,10 +478,10 @@
     .photo-placeholder p{ font-size:19px; }
     .placeholder-ring{ width:66px; height:66px; }
     .star{ width:42px; height:42px; }
-    .star.s1{ top:92px; left:14px; }
-    .star.s2{ top:92px; right:14px; }
-    .star.s3{ bottom:108px; left:18px; }
-    .star.s4{ bottom:108px; right:18px; }
+    .star.s1{ top:92px; left:6px; }
+    .star.s2{ top:92px; right:6px; }
+    .star.s3{ bottom:108px; left:8px; }
+    .star.s4{ bottom:108px; right:8px; }
     .capture-area{ margin-top:22px; }
     .signature{ font-size:13px; min-width:190px; }
   }
@@ -519,6 +496,154 @@
     .capture-area{ margin-top:18px; }
     .status-footer{ padding-top:12px; }
   }
+
+  /* Alignment polish */
+  .content{
+    justify-content:flex-start;
+    gap:0;
+    padding:24px 22px 22px;
+  }
+
+  .top-badge{
+    margin:0 auto 18px;
+    text-align:center;
+  }
+
+  .title-card{
+    margin:0 auto 22px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .couple-name{
+    text-align:center;
+  }
+
+  .app-subtitle{
+    text-align:center;
+    max-width:100%;
+  }
+
+  .tv-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .screen{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  #frameSlot{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .photo-placeholder{
+    margin:0 auto;
+  }
+
+  .photo-placeholder p{
+    text-align:center;
+  }
+
+  .capture-area{
+    margin-top:22px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+  }
+
+  .capture-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    margin:0 auto;
+  }
+
+  .capture-btn-inner{
+    min-width:205px;
+    max-width:230px;
+    min-height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    text-align:center;
+    white-space:nowrap;
+  }
+
+  .capture-btn-inner .label-text{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    line-height:1;
+    text-align:center;
+  }
+
+  .save-btn{
+    margin:0 auto;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .status-footer{
+    margin-top:auto;
+    padding-top:18px;
+    align-items:center;
+    justify-content:flex-end;
+  }
+
+  .status{
+    text-align:center;
+    width:100%;
+  }
+
+  .signature{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    margin:0 auto;
+  }
+
+  @media (max-width:420px){
+    .content{
+      padding:22px 18px 20px;
+    }
+
+    .top-badge{
+      margin-bottom:16px;
+    }
+
+    .title-card{
+      margin-bottom:18px;
+    }
+
+    .capture-area{
+      margin-top:20px;
+      gap:10px;
+    }
+
+    .capture-btn-inner{
+      min-width:198px;
+      max-width:220px;
+    }
+
+    .status-footer{
+      padding-top:14px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -530,19 +655,6 @@
         <h1 class="couple-name">Amlan &amp;<br>Sambita</h1>
         <p class="app-subtitle">Moments From Our Forever</p>
       </section>
-
-      <div class="star s1" aria-hidden="true">
-        <svg viewBox="0 0 100 100"><path d="M50 4 C57 31 69 43 96 50 C69 57 57 69 50 96 C43 69 31 57 4 50 C31 43 43 31 50 4Z" /></svg>
-      </div>
-      <div class="star s2" aria-hidden="true">
-        <svg viewBox="0 0 100 100"><path d="M50 4 C57 31 69 43 96 50 C69 57 57 69 50 96 C43 69 31 57 4 50 C31 43 43 31 50 4Z" /></svg>
-      </div>
-      <div class="star s3" aria-hidden="true">
-        <svg viewBox="0 0 100 100"><path d="M50 4 C57 31 69 43 96 50 C69 57 57 69 50 96 C43 69 31 57 4 50 C31 43 43 31 50 4Z" /></svg>
-      </div>
-      <div class="star s4" aria-hidden="true">
-        <svg viewBox="0 0 100 100"><path d="M50 4 C57 31 69 43 96 50 C69 57 57 69 50 96 C43 69 31 57 4 50 C31 43 43 31 50 4Z" /></svg>
-      </div>
 
       <section class="tv-wrap" aria-label="Photo upload area">
         <div class="retro-tv">
@@ -619,7 +731,7 @@
     if (!file) return;
 
     showImage(URL.createObjectURL(file));
-    setStatus("Adding your memory to Amlan & Sambita's wedding album...", "loading");
+    setStatus("Adding your memory to Amlan & Sambita\'s wedding album...", "loading");
 
     const reader = new FileReader();
     reader.onload = function(e){
@@ -629,7 +741,10 @@
         body: JSON.stringify({ image: currentBase64Image }),
         mode: 'no-cors'
       })
-      .then(() => setStatus("Your memory has been added to Amlan & Sambita's forever album ✨", "success"))
+      .then(() => {
+        setStatus("Your memory has been added to Amlan & Sambita's forever album", "success");
+        setTimeout(() => setStatus("\u00a0", ""), 5000);
+      })
       .catch(() => setStatus("Network error. Please try again.", "error"));
     };
     reader.readAsDataURL(file);
