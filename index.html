@@ -1,234 +1,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amlan & Sambita's Wedding</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Amlan &amp; Sambita — Capture a Memory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Unicase:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --sage:#cfdcc7;
+    --sage-deep:#a9bf9c;
+    --sage-shadow:#7e9474;
+    --cream:#fbf6e7;
+    --cream-soft:#f3ecd4;
+    --leaf:#5e8a55;
+    --leaf-deep:#3f6b3a;
+    --leaf-ink:#2a4a27;
+    --gold:#d9b96a;
+    --gold-deep:#a8842f;
+    --rose:#c98a7a;
+    --ink:#2a3a2a;
+    --shadow-elegant: 0 30px 80px -25px rgba(40,70,40,.45), 0 0 0 1px rgba(40,70,40,.10);
+    --shadow-soft: 0 10px 28px -10px rgba(40,70,40,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%}
+  body{
+    font-family:'Cormorant Garamond', Georgia, serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #e3ecdb 0%, transparent 60%),
+      radial-gradient(900px 600px at 100% 100%, #b9cdac 0%, transparent 55%),
+      radial-gradient(900px 600px at 0% 100%, #b9cdac 0%, transparent 55%),
+      linear-gradient(180deg, #cfdcc7 0%, #b9cdac 100%);
+    min-height:100vh; min-height:100dvh;
+    display:flex; align-items:center; justify-content:center;
+    padding:28px 16px;
+    position:relative; overflow-x:hidden;
+  }
 
-  <!-- Importing Eagle Lake from Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Eagle+Lake&display=swap" rel="stylesheet">
+  /* Soft floating cream "clouds" reminiscent of the reference */
+  .cloud{
+    position:fixed; pointer-events:none; opacity:.55; filter:blur(.4px);
+    color:var(--cream);
+  }
+  .cloud svg{display:block; width:100%; height:auto}
+  .cloud.c1{ top:38%; left:-40px;  width:160px; }
+  .cloud.c2{ top:62%; right:-50px; width:200px; opacity:.6 }
+  .cloud.c3{ top:82%; left:-30px;  width:130px; opacity:.45 }
 
-  <style>
-    body { 
-      margin: 0;
-      background-color: #4a2912; 
-      display: flex; 
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      font-family: 'Eagle Lake', serif;
-    }
+  /* Leaf bouquets in top corners */
+  .leaves{
+    position:fixed; top:-30px; width:230px; height:auto; pointer-events:none;
+    filter: drop-shadow(0 6px 18px rgba(40,70,40,.25));
+  }
+  .leaves.left{ left:-40px; transform: rotate(-8deg); }
+  .leaves.right{ right:-40px; transform: scaleX(-1) rotate(-8deg); }
 
-    #app-container {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      max-width: 450px; 
-      background-image: url('wedding-bg.jpg');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      
-      /* KEY FIX 1: This stops the text from jumping up over the Ganesha */
-      justify-content: flex-start; 
-      align-items: center;
-      padding-top: 25vh; /* Pushes everything perfectly under the Ganesha */
-      box-sizing: border-box;
-      overflow-y: auto;
-    }
+  .card{
+    position:relative; z-index:2;
+    width:100%; max-width:440px;
+    background:
+      radial-gradient(120% 80% at 50% 0%, #ffffff 0%, var(--cream) 55%, var(--cream-soft) 100%);
+    border-radius:28px;
+    padding:42px 28px 30px;
+    box-shadow: var(--shadow-elegant);
+    border:1px solid rgba(63,107,58,.18);
+    overflow:hidden;
+  }
+  /* Inner gold-leaf border */
+  .card::before{
+    content:""; position:absolute; inset:12px;
+    border:1px solid rgba(168,132,47,.45);
+    border-radius:20px; pointer-events:none;
+  }
+  .card::after{
+    content:""; position:absolute; inset:16px;
+    border:1px dashed rgba(63,107,58,.20);
+    border-radius:16px; pointer-events:none;
+  }
 
-    .content-area {
-      width: 90%;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  /* Ornamental corners */
+  .corner{
+    position:absolute; width:30px; height:30px; pointer-events:none; opacity:.85;
+    border:2px solid var(--gold-deep);
+  }
+  .corner.tl{top:22px; left:22px; border-right:none;  border-bottom:none; border-top-left-radius:10px}
+  .corner.tr{top:22px; right:22px;border-left:none;  border-bottom:none; border-top-right-radius:10px}
+  .corner.bl{bottom:22px; left:22px;border-right:none;border-top:none;    border-bottom-left-radius:10px}
+  .corner.br{bottom:22px; right:22px;border-left:none;border-top:none;    border-bottom-right-radius:10px}
 
-    h1 {
-      font-family: 'Eagle Lake', serif;
-      font-size: 34px; /* Slightly smaller to fit perfectly */
-      color: #FFFDD0; 
-      margin: 0 0 5px 0;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      line-height: 1.1;
-      font-weight: normal;
-    }
-    
-    p.subtitle {
-      font-family: 'Eagle Lake', serif;
-      font-size: 16px;
-      color: #E5B80B; 
-      margin-bottom: 20px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    }
+  header{ text-align:center; padding:4px 0 8px; position:relative; }
 
-    .custom-file-upload {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 30px;
-      cursor: pointer;
-      background: rgba(42, 21, 8, 0.6); 
-      border: 2px solid #E5B80B; 
-      color: #E5B80B;
-      font-family: 'Eagle Lake', serif;
-      font-size: 15px;
-      letter-spacing: 1px;
-      border-radius: 8px; 
-      margin-bottom: 15px;
-      transition: all 0.3s;
-      
-      /* KEY FIX 2: Makes the button small and centered between the leaves */
-      width: auto; 
-      min-width: 160px;
-      box-sizing: border-box;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    }
-    
-    .custom-file-upload:active {
-      transform: scale(0.97);
-      background: rgba(229, 184, 11, 0.2); 
-    }
+  /* UPDATED MONOGRAM: Added 50px left padding to perfectly balance the 3 invisible spaces on the right */
+  .monogram{
+    font-family:'Pinyon Script', cursive;
+    font-size:106px; line-height:1.2;
+    background: linear-gradient(135deg, #6fa163 0%, #3f6b3a 45%, #a8842f 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow: 0 2px 18px rgba(63,107,58,.18);
+    padding:10px 0 10px 50px; 
+    letter-spacing:.01em;
+    display:inline-block;
+  }
 
-    input[type="file"] { 
-      display: none; 
-    }
+  .divider{
+    display:flex; align-items:center; justify-content:center; gap:12px;
+    margin:-10px auto 14px; color:var(--gold-deep);
+  }
+  .divider .line{
+    height:1px; width:78px;
+    background: linear-gradient(to right, transparent, var(--gold-deep), transparent);
+  }
+  .divider .ornament{ font-size:14px; opacity:.95; letter-spacing:.1em; }
 
-    #savePhoneBtn { 
-      padding: 10px 25px; 
-      font-size: 13px; 
-      font-family: 'Eagle Lake', serif;
-      cursor: pointer; 
-      background: rgba(255, 253, 208, 0.1); 
-      color: #FFFDD0; 
-      border: 1px solid #FFFDD0; 
-      border-radius: 8px; 
-      
-      /* KEY FIX 3: Makes the save button small and centered */
-      width: auto; 
-      min-width: 150px;
-      margin: 15px auto 0 auto;
-      transition: transform 0.2s;
-      display: none; 
-      letter-spacing: 1px;
-    }
+  .names{
+    font-family:'Cormorant Unicase','Cormorant Garamond', serif;
+    font-weight:500; font-size:26px; letter-spacing:.22em;
+    margin:0; color:var(--leaf-ink); text-transform:uppercase;
+  }
+  .date{
+    margin:6px 0 0; font-size:12.5px; letter-spacing:.32em;
+    color:var(--gold-deep); text-transform:uppercase;
+  }
+  .tagline{
+    margin:10px 0 0; font-style:italic; font-size:15.5px;
+    color:#6b8463; letter-spacing:.03em;
+  }
 
-    #preview-container {
-      position: relative;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+  .capture-area{
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+    padding:16px 0 8px;
+  }
 
-    #preview { 
-      max-width: 90%; 
-      
-      /* KEY FIX 4: Limits photo height so it doesn't push into the bottom border */
-      max-height: 26vh; 
-      object-fit: contain;
-      border-radius: 4px; 
-      display: none; 
-      border: 3px solid #E5B80B; 
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-    }
+  .photo-placeholder{
+    width:100%; aspect-ratio:4/3; border-radius:18px;
+    border:1px dashed rgba(63,107,58,.45);
+    background:
+      radial-gradient(circle at center, rgba(94,138,85,.08), transparent 70%),
+      #e7eedf;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:12px; color:var(--leaf-deep); text-align:center; padding:18px;
+  }
+  .placeholder-ring{
+    width:68px; height:68px; border-radius:50%;
+    display:grid; place-items:center;
+    background:var(--cream);
+    border:1px solid rgba(168,132,47,.55);
+    color:var(--leaf-deep);
+    box-shadow: inset 0 0 0 4px rgba(255,255,255,.6), 0 4px 14px -6px rgba(40,70,40,.25);
+  }
+  .placeholder-ring svg{ width:32px; height:32px; }
+  .photo-placeholder p{
+    margin:0; font-style:italic; font-size:14.5px; letter-spacing:.04em; opacity:.85;
+  }
 
-    #status { 
-      margin-top: 15px; 
-      font-family: 'Eagle Lake', serif;
-      font-size: 14px;
-      color: #FFFDD0;
-      min-height: 24px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-      padding: 0 10px;
-    }
-  </style>
+  .photo-frame{
+    width:100%; aspect-ratio:4/3; border-radius:18px;
+    padding:8px;
+    background: linear-gradient(135deg, #6fa163, #3f6b3a 60%, #d9b96a);
+    box-shadow: var(--shadow-soft);
+  }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; border-radius:12px; display:block }
+
+  .capture-btn{ display:inline-block; cursor:pointer; }
+  .capture-btn input{ display:none; }
+  .capture-btn-inner{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:13px 30px; border-radius:999px;
+    background: linear-gradient(135deg, #5e8a55, #3f6b3a);
+    color:#fbf6e7;
+    font-family:'Cormorant Garamond', serif; font-weight:600;
+    font-size:15px; letter-spacing:.16em; text-transform:uppercase;
+    box-shadow: 0 10px 26px -10px rgba(40,70,40,.5), inset 0 0 0 1px rgba(255,255,255,.18);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .capture-btn-inner svg{ width:18px; height:18px; }
+  .capture-btn:hover .capture-btn-inner{ transform: translateY(-1px); }
+  .capture-btn:active .capture-btn-inner{ transform: scale(.97); }
+
+  .save-btn{
+    background:transparent; color:var(--leaf-deep);
+    border:1px solid rgba(63,107,58,.5);
+    padding:10px 24px; border-radius:999px;
+    font-family:'Cormorant Garamond', serif; font-size:13px;
+    letter-spacing:.16em; text-transform:uppercase; cursor:pointer;
+    transition: all .2s ease; display:none;
+  }
+  .save-btn:hover{ background:rgba(94,138,85,.08); border-color:var(--leaf-deep); color:var(--leaf-ink); }
+
+  .status-footer{
+    margin-top:18px; text-align:center; min-height:60px;
+    display:flex; flex-direction:column; justify-content:center; gap:8px;
+  }
+  .status{
+    margin:0; font-size:14.5px; font-style:italic; min-height:1.2em;
+    transition: color .3s ease; color: var(--leaf-deep); opacity:.8;
+  }
+  .status.loading{ color: var(--gold-deep); opacity:1 }
+  .status.success{ color: var(--leaf-ink); opacity:1 }
+  .status.error{ color:#b54a3a; opacity:1 }
+
+  .signature{
+    font-family:'Pinyon Script', cursive; font-size:22px;
+    background: linear-gradient(135deg, #d9b96a, #a8842f);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    letter-spacing:.04em;
+  }
+
+  /* Small phones */
+  @media (max-height: 720px){
+    /* Adjusted padding up here as well to keep it balanced */
+    .monogram{ font-size:86px; line-height:1.2; padding:10px 0 10px 50px; }
+    .card{ padding:34px 24px 24px; }
+  }
+</style>
 </head>
 <body>
 
-  <div id="app-container">
-    <div class="content-area">
-      <h1>Amlan & Sambita</h1>
-      <p class="subtitle">Capture a memory for us</p>
-      
-      <label class="custom-file-upload">
-        <input type="file" id="cameraInput" accept="image/*" capture="environment">
-        Take Photo
-      </label>
-      
-      <div id="preview-container">
-        <img id="preview" alt="Your beautiful photo">
-        <button id="savePhoneBtn">Save to Gallery</button>
-      </div>
-      
-      <p id="status"></p>
-    </div>
+  <svg class="leaves left" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <radialGradient id="lg1" cx="40%" cy="35%" r="65%">
+        <stop offset="0%" stop-color="#8fb583"/>
+        <stop offset="60%" stop-color="#5e8a55"/>
+        <stop offset="100%" stop-color="#3f6b3a"/>
+      </radialGradient>
+    </defs>
+    <g fill="url(#lg1)">
+      <ellipse cx="60"  cy="60"  rx="58" ry="32" transform="rotate(-25 60 60)"/>
+      <ellipse cx="110" cy="50"  rx="60" ry="28" transform="rotate(-5 110 50)"/>
+      <ellipse cx="150" cy="90"  rx="58" ry="30" transform="rotate(20 150 90)"/>
+      <ellipse cx="80"  cy="110" rx="62" ry="30" transform="rotate(-45 80 110)"/>
+      <ellipse cx="130" cy="135" rx="50" ry="26" transform="rotate(35 130 135)"/>
+      <ellipse cx="40"  cy="150" rx="40" ry="22" transform="rotate(-60 40 150)"/>
+    </g>
+    <g>
+      <g transform="translate(70 70)">
+        <circle r="9" fill="#fbf6e7"/><circle r="3" fill="#d9b96a"/>
+      </g>
+      <g transform="translate(130 60)">
+        <circle r="8" fill="#fbf6e7"/><circle r="2.5" fill="#d9b96a"/>
+      </g>
+      <g transform="translate(105 115)">
+        <circle r="10" fill="#fbf6e7"/><circle r="3" fill="#d9b96a"/>
+      </g>
+      <g transform="translate(160 130)">
+        <circle r="7" fill="#fbf6e7"/><circle r="2.5" fill="#d9b96a"/>
+      </g>
+    </g>
+  </svg>
+  <svg class="leaves right" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <use href="#" />
+    <defs>
+      <radialGradient id="lg2" cx="40%" cy="35%" r="65%">
+        <stop offset="0%" stop-color="#8fb583"/>
+        <stop offset="60%" stop-color="#5e8a55"/>
+        <stop offset="100%" stop-color="#3f6b3a"/>
+      </radialGradient>
+    </defs>
+    <g fill="url(#lg2)">
+      <ellipse cx="60"  cy="60"  rx="58" ry="32" transform="rotate(-25 60 60)"/>
+      <ellipse cx="110" cy="50"  rx="60" ry="28" transform="rotate(-5 110 50)"/>
+      <ellipse cx="150" cy="90"  rx="58" ry="30" transform="rotate(20 150 90)"/>
+      <ellipse cx="80"  cy="110" rx="62" ry="30" transform="rotate(-45 80 110)"/>
+      <ellipse cx="130" cy="135" rx="50" ry="26" transform="rotate(35 130 135)"/>
+      <ellipse cx="40"  cy="150" rx="40" ry="22" transform="rotate(-60 40 150)"/>
+    </g>
+    <g>
+      <g transform="translate(70 70)"><circle r="9" fill="#fbf6e7"/><circle r="3" fill="#d9b96a"/></g>
+      <g transform="translate(130 60)"><circle r="8" fill="#fbf6e7"/><circle r="2.5" fill="#d9b96a"/></g>
+      <g transform="translate(105 115)"><circle r="10" fill="#fbf6e7"/><circle r="3" fill="#d9b96a"/></g>
+      <g transform="translate(160 130)"><circle r="7" fill="#fbf6e7"/><circle r="2.5" fill="#d9b96a"/></g>
+    </g>
+  </svg>
+
+  <div class="cloud c1" aria-hidden="true">
+    <svg viewBox="0 0 200 120"><path fill="currentColor" d="M30,90 C10,90 10,60 35,58 C30,30 70,20 80,45 C90,25 130,30 130,55 C160,55 170,90 145,95 C140,115 60,115 50,98 C42,108 22,108 30,90 Z"/></svg>
+  </div>
+  <div class="cloud c2" aria-hidden="true">
+    <svg viewBox="0 0 200 120"><path fill="currentColor" d="M30,90 C10,90 10,60 35,58 C30,30 70,20 80,45 C90,25 130,30 130,55 C160,55 170,90 145,95 C140,115 60,115 50,98 C42,108 22,108 30,90 Z"/></svg>
+  </div>
+  <div class="cloud c3" aria-hidden="true">
+    <svg viewBox="0 0 200 120"><path fill="currentColor" d="M30,90 C10,90 10,60 35,58 C30,30 70,20 80,45 C90,25 130,30 130,55 C160,55 170,90 145,95 C140,115 60,115 50,98 C42,108 22,108 30,90 Z"/></svg>
   </div>
 
-  <script>
-    const cameraInput = document.getElementById('cameraInput');
-    const savePhoneBtn = document.getElementById('savePhoneBtn');
-    const statusText = document.getElementById('status');
-    const preview = document.getElementById('preview');
+  <main class="card" role="main">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHe2KsUovNfHoOb0UT5nG9f3DhowNKFHW8FJQbyBr8bualnScJtnNksE3GjDE9m3hQ/exec';
-    
-    let currentBase64Image = "";
+    <header>
+      <div class="monogram">A&amp;S&nbsp;&nbsp;&nbsp;</div>
+      <div class="divider"><span class="line"></span><span class="ornament">❦</span><span class="line"></span></div>
+      <h1 class="names">Amlan &amp; Sambita</h1>
+      <p class="date">The Wedding</p>
+      <p class="tagline">Capture a memory for us</p>
+    </header>
 
-    cameraInput.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
+    <section class="capture-area">
+      <div id="frameSlot">
+        <div class="photo-placeholder" id="placeholder">
+          <div class="placeholder-ring" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 8h3l2-2h6l2 2h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/>
+              <circle cx="12" cy="13" r="3.5"/>
+            </svg>
+          </div>
+          <p>A blank canvas awaits your memory</p>
+        </div>
+      </div>
 
-      preview.src = URL.createObjectURL(file);
-      preview.style.display = "block";
-      savePhoneBtn.style.display = "inline-flex"; 
-      
-      statusText.innerHTML = "Preserving this beautiful moment...";
-      statusText.style.color = "#E5B80B"; 
+      <label class="capture-btn">
+        <input type="file" id="cameraInput" accept="image/*" capture="environment" />
+        <span class="capture-btn-inner" id="captureLabel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 8h3l2-2h6l2 2h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/>
+            <circle cx="12" cy="13" r="3.5"/>
+          </svg>
+          Take Photo
+        </span>
+      </label>
 
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        currentBase64Image = e.target.result;
+      <button class="save-btn" id="savePhoneBtn">Save to Gallery</button>
+    </section>
 
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          body: JSON.stringify({ image: currentBase64Image }),
-          mode: 'no-cors' 
-        })
-        .then(() => {
-          statusText.innerHTML = "Thank you for helping preserve their special day.";
-          statusText.style.color = "#FFFDD0"; 
-        })
-        .catch(err => {
-          statusText.innerHTML = "Network Error.";
-          statusText.style.color = "#ff6b6b"; 
-          console.error(err);
-        });
-      };
-      
-      reader.readAsDataURL(file);
-    });
+    <footer class="status-footer">
+      <p class="status" id="status">&nbsp;</p>
+      <div class="signature">— with love, A &amp; S —</div>
+    </footer>
+  </main>
 
-    savePhoneBtn.addEventListener('click', () => {
-      if (!currentBase64Image) return;
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHe2KsUovNfHoOb0UT5nG9f3DhowNKFHW8FJQbyBr8bualnScJtnNksE3GjDE9m3hQ/exec';
 
-      const downloadLink = document.createElement('a');
-      downloadLink.href = currentBase64Image;
-      downloadLink.download = `Amlan_Sambita_Wedding_${new Date().getTime()}.jpg`;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-      
-      const originalText = savePhoneBtn.innerHTML;
-      savePhoneBtn.innerHTML = "Saved!";
-      setTimeout(() => {
-        savePhoneBtn.innerHTML = originalText;
-      }, 2000);
-    });
-  </script>
+  const cameraInput  = document.getElementById('cameraInput');
+  const savePhoneBtn = document.getElementById('savePhoneBtn');
+  const statusText   = document.getElementById('status');
+  const frameSlot    = document.getElementById('frameSlot');
+  const captureLabel = document.getElementById('captureLabel');
+
+  let currentBase64Image = "";
+
+  function setStatus(text, tone){
+    statusText.textContent = text;
+    statusText.className = 'status ' + (tone || '');
+  }
+
+  function showImage(src){
+    frameSlot.innerHTML = '<div class="photo-frame"><img id="preview" alt="Your captured moment"/></div>';
+    document.getElementById('preview').src = src;
+    savePhoneBtn.style.display = 'inline-flex';
+    captureLabel.lastChild.textContent = ' Retake Photo';
+  }
+
+  cameraInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    showImage(URL.createObjectURL(file));
+    setStatus("Preserving this beautiful moment…", "loading");
+
+    const reader = new FileReader();
+    reader.onload = function(e){
+      currentBase64Image = e.target.result;
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ image: currentBase64Image }),
+        mode: 'no-cors'
+      })
+      .then(() => setStatus("Thank you for helping preserve their special day.", "success"))
+      .catch(() => setStatus("Network error. Please try again.", "error"));
+    };
+    reader.readAsDataURL(file);
+  });
+
+  savePhoneBtn.addEventListener('click', () => {
+    if (!currentBase64Image) return;
+    const a = document.createElement('a');
+    a.href = currentBase64Image;
+    a.download = `Amlan_Sambita_Wedding_${Date.now()}.jpg`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    const original = savePhoneBtn.textContent;
+    savePhoneBtn.textContent = 'Saved ✓';
+    setTimeout(() => savePhoneBtn.textContent = original, 2000);
+  });
+</script>
 </body>
 </html>
